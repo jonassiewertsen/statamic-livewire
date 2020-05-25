@@ -12,6 +12,6 @@ class ServiceProvider extends AddonServiceProvider
     }
 
     protected $tags = [
-        //
+        'Jonassiewertsen\Livewire\Tags\Livewire',
     ];
 }
