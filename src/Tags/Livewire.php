@@ -1,20 +1,63 @@
 <?php
 
-
 namespace Jonassiewertsen\Livewire\Tags;
 
-use Livewire\LivewireBladeDirectives;
+use Illuminate\Support\Str;
 
 class Livewire extends \Statamic\Tags\Tags
 {
+    /**
+     * This will load your Livewire component in the antlers view
+     *
+     * {{ livewire:your-component-name }}
+     *
+     * The code has been copied shameless from /Livewire/LivewireBladeDirectives
+     * A few small changes have been made to output the dom correctly.
+     *
+     * @param $expression
+     * @return mixed
+     */
     public function wildcard($expression) {
-        return LivewireBladeDirectives::livewire($expression);
+        $lastArg = trim(last(explode(',', $expression)));
+
+        if (Str::startsWith($lastArg, 'key(') && Str::endsWith($lastArg, ')')) {
+            $cachedKey = Str::replaceFirst('key(', '', Str::replaceLast(')', '', $lastArg));
+            $args = explode(',', $expression);
+            array_pop($args);
+            $expression = implode(',', $args);
+        } else {
+            $cachedKey = "'".Str::random(7)."'";
+        }
+
+        if (! isset($_instance)) {
+            $dom = \Livewire\Livewire::mount($expression)->dom;
+        } elseif ($_instance->childHasBeenRendered($cachedKey)) {
+            $componentId = $_instance->getRenderedChildComponentId($cachedKey);
+            $componentTag = $_instance->getRenderedChildComponentTagName($cachedKey);
+            $dom = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+            $_instance->preserveRenderedChild($cachedKey);
+        } else {
+            $response = \Livewire\Livewire::mount($expression);
+            $dom = $response->dom;
+            $_instance->logRenderedChild($cachedKey, $response->id, \Livewire\Livewire::getRootElementTagName($dom));
+        }
+        return $dom;
     }
 
+    /**
+     * Loading the livewire styles in antlers style
+     *
+     * {{ livewire:styles }}
+     */
     public function styles() {
         return \Livewire\Livewire::styles();
     }
 
+    /**
+     * Loading the livewire styles in antlers style
+     *
+     * {{ livewire:scripts }}
+     */
     public function scripts() {
         return \Livewire\Livewire::scripts();
     }
