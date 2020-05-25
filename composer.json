@@ -1,0 +1,42 @@
+{
+  "name": "jonassiewertsen/statamic-livewire",
+  "description": "A Laravel Livewire integration for Statamic v3.",
+  "keywords": [
+    "Statamic",
+    "Addon",
+    "Laravel",
+    "Livewire"
+  ],
+  "license": "proprietary",
+  "type": "statamic-addon",
+  "autoload": {
+    "psr-4": {
+      "Jonassiewertsen\\Livewire\\": "src"
+    }
+  },
+  "authors": [
+    {
+      "name": "Jonas Siewertsen"
+    }
+  ],
+  "support": {
+    "email": "mail@jonassiewertsen.com"
+  },
+  "require": {
+    "php": "^7.4",
+    "illuminate/support": "^7.0",
+    "statamic/cms": "3.*@beta",
+    "livewire/livewire": "^1.0"
+  },
+  "extra": {
+    "statamic": {
+      "name": "Livewire",
+      "description": "A Laravel Livewire integration for Statamic v3."
+    },
+    "laravel": {
+      "providers": [
+        "Jonassiewertsen\\Livewire\\ServiceProvider"
+      ]
+    }
+  }
+}
