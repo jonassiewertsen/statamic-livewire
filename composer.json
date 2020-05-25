@@ -1,13 +1,13 @@
 {
   "name": "jonassiewertsen/statamic-livewire",
-  "description": "A Laravel Livewire integration for Statamic v3.",
+  "description": "A Laravel Livewire integration for Statamics antlers engine.",
   "keywords": [
     "Statamic",
     "Addon",
     "Laravel",
     "Livewire"
   ],
-  "license": "proprietary",
+  "license": "MIT",
   "type": "statamic-addon",
   "autoload": {
     "psr-4": {
@@ -31,7 +31,7 @@
   "extra": {
     "statamic": {
       "name": "Livewire",
-      "description": "A Laravel Livewire integration for Statamic v3."
+      "description": "A Laravel Livewire integration for Statamics antlers engine"
     },
     "laravel": {
       "providers": [
