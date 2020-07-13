@@ -56,6 +56,34 @@ You can create Livewire components as described in the general documentation. To
 </html>
 ```
 
+### Passing Initial Parameters
+You can pass data into a component by passing additional parameters
+```html
+{{ livewire:your-component-name contact="contact" }}
+```
+
+To intercept with those parameters, mount them and store the data as public properties.
+
+```php
+use Livewire\Component;
+
+class ShowContact extends Component
+{
+    public $name;
+    public $email;
+
+    public function mount($contact)
+    {
+        $this->name = $contact->name;
+        $this->email = $contact->email;
+    }
+
+    ...
+}
+```
+
+The [Official Livewire documentation](https://laravel-livewire.com/docs/rendering-components)
+
 # License 
 This plugin is published under the MIT license. Feel free to use it and remember to spread love.
 
