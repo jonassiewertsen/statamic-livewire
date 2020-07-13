@@ -19,6 +19,11 @@ class Livewire extends \Statamic\Tags\Tags
      */
     public function wildcard($expression)
     {
+        /**
+         * Fetching all parameters from our livwire tag, to mount them as livewire parameters.
+         */
+        $parameter = $this->params;
+
         $lastArg = trim(last(explode(',', $expression)));
 
         if (Str::startsWith($lastArg, 'key(') && Str::endsWith($lastArg, ')')) {
@@ -31,14 +36,14 @@ class Livewire extends \Statamic\Tags\Tags
         }
 
         if (!isset($_instance)) {
-            $dom = \Livewire\Livewire::mount($expression)->dom;
+            $dom = \Livewire\Livewire::mount($expression, $parameter->toArray())->dom;
         } elseif ($_instance->childHasBeenRendered($cachedKey)) {
             $componentId  = $_instance->getRenderedChildComponentId($cachedKey);
             $componentTag = $_instance->getRenderedChildComponentTagName($cachedKey);
             $dom          = \Livewire\Livewire::dummyMount($componentId, $componentTag);
             $_instance->preserveRenderedChild($cachedKey);
         } else {
-            $response = \Livewire\Livewire::mount($expression);
+            $response = \Livewire\Livewire::mount($expression, $parameter->toArray());
             $dom      = $response->dom;
             $_instance->logRenderedChild($cachedKey, $response->id, \Livewire\Livewire::getRootElementTagName($dom));
         }
