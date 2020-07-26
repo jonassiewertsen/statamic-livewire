@@ -6,6 +6,8 @@ use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
 {
+    protected $publishAfterInstall = false;
+    
     public function boot()
     {
         parent::boot();
