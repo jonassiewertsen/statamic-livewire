@@ -25,7 +25,7 @@
   "require": {
     "php": "^7.4",
     "illuminate/support": "^7.0",
-    "statamic/cms": "3.*@beta",
+    "statamic/cms": "^3.0",
     "livewire/livewire": "^1.0"
   },
   "extra": {
