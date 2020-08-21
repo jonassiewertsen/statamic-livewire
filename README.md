@@ -4,16 +4,6 @@
 
 A [Laravel Livewire](https://laravel-livewire.com/) integration for Statamics Antlers template engine. 
 
-## Help wanted!
-This version it fully experimental right now and I am still tinkering around with it.
-
-Feel free to contribute to this addon, to make the integration for Statamics Antlers engine great and fun to use.
-
-## requires
-- PHP 7.4
-- Laravel 7
-- Statamic V3
-
 ## Installation
 Pull in your package with composer
 ```bash
@@ -83,6 +73,16 @@ class ShowContact extends Component
 ```
 
 The [Official Livewire documentation](https://laravel-livewire.com/docs/rendering-components)
+
+## Requirements
+- PHP 7.4
+- Laravel 7
+- Statamic 3
+
+# Support
+I love to share with the community. Nevertheless, it does take a lot of work, time and effort. 
+
+[Sponsor me on GitHub](https://github.com/sponsors/jonassiewertsen/) to support my work and the support for this addon.
 
 # License 
 This plugin is published under the MIT license. Feel free to use it and remember to spread love.
