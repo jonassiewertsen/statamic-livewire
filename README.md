@@ -46,6 +46,27 @@ You can create Livewire components as described in the general documentation. To
 </html>
 ```
 
+### Blade or Antlers? Both!
+If creating a Livewire component, you need to render a template file
+
+```
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+
+class Counter extends Component
+{
+    public function render()
+    {
+        return view('livewire.counter');
+    }
+}
+```
+More Information: (https://laravel-livewire.com/docs/quickstart#create-a-component)
+
+Normally your template file would be a blade file, named `counter.blade.php`. Great, but what about Antlers?
+Rename your template to `counter.antlers.html`, use Antlers syntax and do wathever you like. **No need to change** anything inside your component Controller. How cool is that?
+
 ### Passing Initial Parameters
 You can pass data into a component by passing additional parameters
 ```html
