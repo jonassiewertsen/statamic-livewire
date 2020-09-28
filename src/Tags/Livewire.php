@@ -24,6 +24,9 @@ class Livewire extends \Statamic\Tags\Tags
          */
         $parameter = $this->params;
 
+        /**
+         * Let the Livewire magic happen.
+         */
         $lastArg = trim(last(explode(',', $expression)));
 
         if (Str::startsWith($lastArg, 'key(') && Str::endsWith($lastArg, ')')) {
@@ -35,19 +38,19 @@ class Livewire extends \Statamic\Tags\Tags
             $cachedKey = "'" . Str::random(7) . "'";
         }
 
-        if (!isset($_instance)) {
-            $dom = \Livewire\Livewire::mount($expression, $parameter->toArray())->dom;
+        if (! isset($_instance)) {
+            $html = \Livewire\Livewire::mount($expression, $parameter->toArray())->html();
         } elseif ($_instance->childHasBeenRendered($cachedKey)) {
             $componentId  = $_instance->getRenderedChildComponentId($cachedKey);
             $componentTag = $_instance->getRenderedChildComponentTagName($cachedKey);
-            $dom          = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+            $html         = \Livewire\Livewire::dummyMount($componentId, $componentTag);
             $_instance->preserveRenderedChild($cachedKey);
         } else {
             $response = \Livewire\Livewire::mount($expression, $parameter->toArray());
-            $dom      = $response->dom;
-            $_instance->logRenderedChild($cachedKey, $response->id, \Livewire\Livewire::getRootElementTagName($dom));
+            $html     = $response->html();
+            $_instance->logRenderedChild($cachedKey, $response->id(), \Livewire\Livewire::getRootElementTagName($html));
         }
-        return $dom;
+        return $html;
     }
 
     /**
