@@ -95,6 +95,10 @@ class ShowContact extends Component
 
 The [Official Livewire documentation](https://laravel-livewire.com/docs/rendering-components)
 
+## Credit
+
+Thanks to [austenc](https://github.com/austenc) for the Statamic marketplace preview image
+
 ## Requirements
 - PHP 7.4
 - Laravel 7
