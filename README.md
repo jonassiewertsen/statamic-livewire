@@ -95,7 +95,7 @@ class ShowContact extends Component
 
 The [Official Livewire documentation](https://laravel-livewire.com/docs/rendering-components)
 
-## Credit
+## Credits
 
 Thanks to [austenc](https://github.com/austenc) for the Statamic marketplace preview image
 
