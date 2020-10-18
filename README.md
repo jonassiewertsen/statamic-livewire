@@ -2,7 +2,9 @@
 ![Statamic 3.0+](https://img.shields.io/badge/Statamic-3.0+-FF269E?style=for-the-badge&link=https://statamic.com)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/jonassiewertsen/statamic-livewire.svg?style=for-the-badge)](https://packagist.org/packages/jonassiewertsen/statamic-livewire)
 
-A [Laravel Livewire](https://laravel-livewire.com/) integration for Statamics Antlers template engine. 
+A third-party [Laravel Livewire](https://laravel-livewire.com/) integration for Antlers. 
+
+It's as easy as it get's to get stared with Livewire if using Statamic 3. 
 
 ## Installation
 Pull in your package with composer
@@ -97,7 +99,9 @@ The [Official Livewire documentation](https://laravel-livewire.com/docs/renderin
 
 ## Credits
 
-Thanks to [austenc](https://github.com/austenc) for the Statamic marketplace preview image
+Thanks to:
+- [Caleb](https://github.com/calebporzio) and the community for building [Livewire](https://laravel-livewire.com/)
+- [Austenc](https://github.com/austenc) for the Statamic marketplace preview image
 
 ## Requirements
 - PHP 7.4
