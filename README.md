@@ -135,6 +135,7 @@ class ShowArticles extends Component
     {
         return view('livewire.blog-entries', $this->entries());
     }
+}
 ```
 
 ## Credits
