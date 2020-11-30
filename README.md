@@ -97,6 +97,46 @@ class ShowContact extends Component
 
 The [Official Livewire documentation](https://laravel-livewire.com/docs/rendering-components)
 
+### Paginating Data
+You can paginate results by using the WithPagination trait.
+
+#### Blade
+To use pagination with Blade, please use the `Livewire\WithPagination` namespace for your trait as described in the [Livewire docs](https://laravel-livewire.com/docs/2.x/pagination#paginating-data).
+
+### Antlers
+Pagination with Antlers does work similar. Make sure to use the `Jonassiewertsen\Livewire\WithPagination` namespace for your trait if working with Antlers. 
+
+In your Livewire component view:
+```html
+{{ entries }}
+    ...
+{{ /entries }}
+
+{{ links }}
+```
+
+```php
+use Jonassiewertsen\Livewire\WithPagination;
+
+class ShowArticles extends Component
+{
+    use WithPagination;
+
+    protected function entries()
+    {
+        $entries = Entry::query()
+            ->where('collection', 'articles')
+            ->paginate(3);
+
+        return $this->withPagination('entries', $entries);
+    }
+
+    public function render()
+    {
+        return view('livewire.blog-entries', $this->entries());
+    }
+```
+
 ## Credits
 
 Thanks to:
