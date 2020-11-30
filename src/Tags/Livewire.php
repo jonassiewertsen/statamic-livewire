@@ -20,7 +20,7 @@ class Livewire extends \Statamic\Tags\Tags
     public function wildcard($expression)
     {
         /**
-         * Fetching all parameters from our livwire tag, to mount them as livewire parameters.
+         * Fetching all parameters from our livewire tag, to mount them as livewire parameters.
          */
         $parameter = $this->params;
 
