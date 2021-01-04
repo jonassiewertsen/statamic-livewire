@@ -138,6 +138,19 @@ class ShowArticles extends Component
 }
 ```
 
+### Entangle: Sharing State Between Livewire And Alpine
+In case you want to share state between Livewire and Alpine, there is a Blade directive called @entangle:
+[Livewire docs](https://laravel-livewire.com/docs/2.x/alpine-js#:~:text=Livewire%20has%20an%20incredibly%20powerful,other%20will%20also%20be%20changed.)
+
+To be usable with Antlers, we do provide an dedicated Tag:
+```html
+<!-- With Antlers -->
+<div x-data="{ open: {{ livewire:entangle property='showDropdown' }} }">
+        
+<!-- With Blade -->
+<div x-data="{ open: @entangle('showDropdown').defer }">
+```
+
 ## Credits
 
 Thanks to:
