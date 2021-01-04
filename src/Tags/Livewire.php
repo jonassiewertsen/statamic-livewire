@@ -18,7 +18,7 @@ class Livewire extends Tags
      * @param $expression
      * @return mixed
      */
-    public function wildcard($expression)
+    public function wildcard($expression): string
     {
         /**
          * Fetching all parameters from our livewire tag, to mount them as livewire parameters.
@@ -63,7 +63,7 @@ class Livewire extends Tags
      *
      * {{ livewire:entangle property='showDropdown' }}
      */
-    public function entangle()
+    public function entangle(): string
     {
         $expression = $this->params->get('property');
         $instanceId = $this->context['_instance']->id;
@@ -84,7 +84,7 @@ class Livewire extends Tags
      *
      * {{ livewire:styles }}
      */
-    public function styles()
+    public function styles(): string
     {
         return \Livewire\Livewire::styles();
     }
@@ -94,7 +94,7 @@ class Livewire extends Tags
      *
      * {{ livewire:scripts }}
      */
-    public function scripts()
+    public function scripts(): string
     {
         return \Livewire\Livewire::scripts();
     }
