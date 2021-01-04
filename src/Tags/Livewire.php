@@ -23,7 +23,7 @@ class Livewire extends Tags
         /**
          * Fetching all parameters from our livewire tag, to mount them as livewire parameters.
          */
-        $parameter = $this->params;
+        $parameters = $this->params;
 
         /**
          * Let the Livewire magic happen.
@@ -40,14 +40,14 @@ class Livewire extends Tags
         }
 
         if (! isset($_instance)) {
-            $html = \Livewire\Livewire::mount($expression, $parameter->toArray())->html();
+            $html = \Livewire\Livewire::mount($expression, $parameters->toArray())->html();
         } elseif ($_instance->childHasBeenRendered($cachedKey)) {
             $componentId  = $_instance->getRenderedChildComponentId($cachedKey);
             $componentTag = $_instance->getRenderedChildComponentTagName($cachedKey);
             $html         = \Livewire\Livewire::dummyMount($componentId, $componentTag);
             $_instance->preserveRenderedChild($cachedKey);
         } else {
-            $response = \Livewire\Livewire::mount($expression, $parameter->toArray());
+            $response = \Livewire\Livewire::mount($expression, $parameters->toArray());
             $html     = $response->html();
             $_instance->logRenderedChild($cachedKey, $response->id(), \Livewire\Livewire::getRootElementTagName($html));
         }
