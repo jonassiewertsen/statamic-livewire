@@ -2,7 +2,7 @@
 ![Statamic 3.0+](https://img.shields.io/badge/Statamic-3.0+-FF269E?style=for-the-badge&link=https://statamic.com)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/jonassiewertsen/statamic-livewire.svg?style=for-the-badge)](https://packagist.org/packages/jonassiewertsen/statamic-livewire)
 
-A third-party [Laravel Livewire](https://laravel-livewire.com/) integration for Antlers. 
+A third-party [Laravel Livewire](https://laravel-livewire.com/) integration for Statamic. 
 
 It's as easy as it get's to get stared with Livewire if using Statamic 3. 
 
