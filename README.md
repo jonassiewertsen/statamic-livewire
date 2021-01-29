@@ -34,6 +34,7 @@ Include the JavaScript (on every page that will be using Livewire).
 ### Include components with Antlers
 You can create Livewire components as described in the general documentation. To include your Livewire component:
 ```html
+<html>
 <head>
     ...
     {{ livewire:styles }}
