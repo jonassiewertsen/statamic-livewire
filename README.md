@@ -7,7 +7,8 @@ A third-party [Laravel Livewire](https://laravel-livewire.com/) integration for 
 It's as easy as it get's to get stared with Livewire if using Statamic 3. 
 
 ## Installation
-Pull in your package with composer
+Pull in the Livewire package with composer
+
 ```bash
 composer require jonassiewertsen/statamic-livewire
 ```
@@ -15,38 +16,40 @@ composer require jonassiewertsen/statamic-livewire
 ## General documentation
 [Laravel Livewire Docs](https://laravel-livewire.com/docs/quickstart)
 
-## How to be used with the Antlers template engine
+## Setup inside your template
 
-Include the JavaScript (on every page that will be using Livewire).
+Include the Livewire styles and scripts __on every page__ that will be using Livewire:
 
 ```html
 ...
+    <!-- If using Antlers -->
     {{ livewire:styles }}
+
+    <!-- If using Blade -->
+    @livewireStyles
 </head>
 <body>
 
     ...
+    <!-- If using Antlers -->
     {{ livewire:scripts }}
+
+    <!-- Blade -->
+    @livewireScripts
 </body>
 </html>
 ```
 
-### Include components with Antlers
+### Include components
 You can create Livewire components as described in the general documentation. To include your Livewire component:
 ```html
-<html>
-<head>
-    ...
-    {{ livewire:styles }}
-</head>
 <body>
+    <!-- If using Antlers -->
     {{ livewire:your-component-name }}
-
-    ...
-
-    {{ livewire:scripts }}
+    
+    <!-- If using Blade -->
+    <livewire:your-component-name />
 </body>
-</html>
 ```
 
 ### Blade or Antlers? Both!
@@ -73,7 +76,11 @@ Rename your template to `counter.antlers.html`, use Antlers syntax and do wathev
 ### Passing Initial Parameters
 You can pass data into a component by passing additional parameters
 ```html
-{{ livewire:your-component-name contact="contact" }}
+<!-- If using Antlers -->
+{{ livewire:your-component-name :contact="contact" }}
+
+<!-- If using Blade -->
+<livewire:your-component-name :contact="$contact">
 ```
 
 To intercept with those parameters, mount them and store the data as public properties.
@@ -151,6 +158,13 @@ To be usable with Antlers, we do provide an dedicated Tag:
 <!-- With Blade -->
 <div x-data="{ open: @entangle('showDropdown').defer }">
 ```
+
+## Other Statamic Livewire Packages
+If using Livewire, those packages might be interesting for you as well:
+- [Statamic live serach](https://github.com/jonassiewertsen/statamic-live-search)
+- [Statamic Livewire Forms](https://github.com/aerni/statamic-livewire-forms)
+
+Did I miss a link? let me know!
 
 ## Credits
 
