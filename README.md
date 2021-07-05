@@ -159,6 +159,17 @@ To be usable with Antlers, we do provide an dedicated Tag:
 <div x-data="{ open: @entangle('showDropdown').defer }">
 ```
 
+### This: Accessing the Livewire component
+You can access and perform actions on the Livewire component like this:
+
+```html
+<!-- With Antlers -->
+{{ livewire:this set="('name', 'Jack')" }}
+
+<!-- With Blade -->
+@this.set('name', 'Jack')
+```
+
 ## Other Statamic Livewire Packages
 If using Livewire, those packages might be interesting for you as well:
 - [Statamic live serach](https://github.com/jonassiewertsen/statamic-live-search)

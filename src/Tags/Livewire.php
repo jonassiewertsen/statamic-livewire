@@ -80,6 +80,24 @@ class Livewire extends Tags
     }
 
     /**
+     * Accessing the Livewire component.
+     *
+     * The method is a small variation from /Livewire/LivewireBladeDirectives
+     * A few small changes had to be made to get the correct output.
+     *
+     * {{ livewire:this set="('name', 'Jack')" }}
+     */
+    public function this(): string
+    {
+        $instanceId = $this->context['_instance']->id;
+        $action = $this->params->take(1)->toArray();
+        $method = key($action);
+        $parameters = reset($action);
+
+        return "window.Livewire.find('{$instanceId}').{$method}{$parameters}";
+    }
+
+    /**
      * Loading the livewire styles in antlers style
      *
      * {{ livewire:styles }}
