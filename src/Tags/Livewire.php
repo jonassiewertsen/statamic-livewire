@@ -23,7 +23,7 @@ class Livewire extends Tags
         /**
          * Fetching all parameters from our livewire tag, to mount them as livewire parameters.
          */
-        $parameters = $this->params;
+        $parameters = $this->params->put('context', $this->context);
 
         /**
          * Let the Livewire magic happen.
@@ -68,8 +68,7 @@ class Livewire extends Tags
         $expression = $this->params->get('property');
         $instanceId = $this->context['_instance']->id;
 
-        if ((object) $expression instanceof \Livewire\WireDirective)
-        {
+        if ((object) $expression instanceof \Livewire\WireDirective) {
             $value = $expression->value();
             $modifier = $expression->hasModifier('defer') ? '.defer' : '';
 

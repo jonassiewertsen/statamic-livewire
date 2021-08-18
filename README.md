@@ -105,6 +105,21 @@ class ShowContact extends Component
 
 The [Official Livewire documentation](https://laravel-livewire.com/docs/rendering-components)
 
+### Statamic Context
+Add the `WithContext` trait to your component to make the Statamic context available as public property.
+
+```php
+use Jonassiewertsen\Livewire\WithContext;
+
+class ShowContact extends Component
+{
+    use WithContext;
+
+    ...
+}
+```
+
+
 ### Paginating Data
 You can paginate results by using the WithPagination trait.
 
