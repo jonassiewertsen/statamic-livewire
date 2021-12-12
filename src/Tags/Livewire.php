@@ -18,7 +18,7 @@ class Livewire extends Tags
      * @param $expression
      * @return mixed
      */
-    public function wildcard($expression): string
+    public function wildcard($expression)
     {
         /**
          * Fetching all parameters from our livewire tag, to mount them as livewire parameters.
