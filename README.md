@@ -147,7 +147,7 @@ class ShowArticles extends Component
 ```
 
 ### Entangle: Sharing State Between Livewire And Alpine
-In case you want to share state between Livewire and Alpine, there is a Blade directive called @entangle:
+In case you want to share state between Livewire and Alpine, there is a Blade directive called @entangle:\
 [Livewire docs](https://laravel-livewire.com/docs/2.x/alpine-js#:~:text=Livewire%20has%20an%20incredibly%20powerful,other%20will%20also%20be%20changed.)
 
 To be usable with Antlers, we do provide an dedicated Tag:
@@ -171,16 +171,16 @@ You can access and perform actions on the Livewire component like this:
 ```
 
 ## Other Statamic Livewire Packages
-If using Livewire, those packages might be interesting for you as well:
-- [Statamic live serach](https://github.com/jonassiewertsen/statamic-live-search)
+If using Livewire, those packages might be interesting for you as well:\
+- [Statamic live search](https://github.com/jonassiewertsen/statamic-live-search)\
 - [Statamic Livewire Forms](https://github.com/aerni/statamic-livewire-forms)
 
 Did I miss a link? let me know!
 
 ## Credits
 
-Thanks to:
-- [Caleb](https://github.com/calebporzio) and the community for building [Livewire](https://laravel-livewire.com/)
+Thanks to:\
+- [Caleb](https://github.com/calebporzio) and the community for building [Livewire](https://laravel-livewire.com/)\
 - [Austenc](https://github.com/austenc) for the Statamic marketplace preview image
 
 ## Requirements
