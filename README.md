@@ -171,8 +171,8 @@ You can access and perform actions on the Livewire component like this:
 ```
 
 ## Other Statamic Livewire Packages
-If using Livewire, those packages might be interesting for you as well:\
-- [Statamic live search](https://github.com/jonassiewertsen/statamic-live-search)\
+If using Livewire, those packages might be interesting for you as well:
+- [Statamic live search](https://github.com/jonassiewertsen/statamic-live-search)
 - [Statamic Livewire Forms](https://github.com/aerni/statamic-livewire-forms)
 
 Did I miss a link? let me know!
@@ -180,7 +180,7 @@ Did I miss a link? let me know!
 ## Credits
 
 Thanks to:\
-- [Caleb](https://github.com/calebporzio) and the community for building [Livewire](https://laravel-livewire.com/)\
+- [Caleb](https://github.com/calebporzio) and the community for building [Livewire](https://laravel-livewire.com/)
 - [Austenc](https://github.com/austenc) for the Statamic marketplace preview image
 
 ## Requirements
