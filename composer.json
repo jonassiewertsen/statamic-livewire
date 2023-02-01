@@ -1,42 +1,42 @@
 {
-  "name": "jonassiewertsen/statamic-livewire",
-  "description": "A Laravel Livewire integration for Statamics antlers engine.",
-  "keywords": [
-    "Statamic",
-    "Addon",
-    "Laravel",
-    "Livewire"
-  ],
-  "license": "MIT",
-  "type": "statamic-addon",
-  "autoload": {
-    "psr-4": {
-      "Jonassiewertsen\\Livewire\\": "src"
-    }
-  },
-  "authors": [
-    {
-      "name": "Jonas Siewertsen"
-    }
-  ],
-  "support": {
-    "email": "mail@jonassiewertsen.com"
-  },
-  "require": {
-    "php": "^7.4 || ^8.0",
-    "illuminate/support": "^7.0 || ^8.0 || ^9.0",
-    "statamic/cms": "3.0.* || 3.1.* || 3.2.* || 3.3.* || 3.4.*",
-    "livewire/livewire": "^2.0"
-  },
-  "extra": {
-    "statamic": {
-      "name": "Livewire",
-      "description": "A Laravel Livewire integration for Statamics antlers engine"
+    "name": "jonassiewertsen/statamic-livewire",
+    "description": "A Laravel Livewire integration for Statamics antlers engine.",
+    "keywords": [
+        "Statamic",
+        "Addon",
+        "Laravel",
+        "Livewire"
+    ],
+    "license": "MIT",
+    "type": "statamic-addon",
+    "autoload": {
+        "psr-4": {
+            "Jonassiewertsen\\Livewire\\": "src"
+        }
     },
-    "laravel": {
-      "providers": [
-        "Jonassiewertsen\\Livewire\\ServiceProvider"
-      ]
+    "authors": [
+        {
+            "name": "Jonas Siewertsen"
+        }
+    ],
+    "support": {
+        "email": "mail@jonassiewertsen.com"
+    },
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "illuminate/support": "^7.0 || ^8.0 || ^9.0|^10.0",
+        "statamic/cms": "3.0.* || 3.1.* || 3.2.* || 3.3.* || 3.4.*",
+        "livewire/livewire": "^2.0"
+    },
+    "extra": {
+        "statamic": {
+            "name": "Livewire",
+            "description": "A Laravel Livewire integration for Statamics antlers engine"
+        },
+        "laravel": {
+            "providers": [
+                "Jonassiewertsen\\Livewire\\ServiceProvider"
+            ]
+        }
     }
-  }
 }
