@@ -192,8 +192,8 @@ Thanks to:\
 
 ## Requirements
 - PHP 7.4 or 8.0
-- Laravel 7 or 8
-- Statamic 3
+- Laravel 7, 8, 9 or 10
+- Statamic 3 or 4
 
 # Support
 I love to share with the community. Nevertheless, it does take a lot of work, time and effort. 
