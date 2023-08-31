@@ -40,7 +40,7 @@ class Livewire extends Tags
         }
 
         if (! isset($_instance)) {
-            $html = \Livewire\Livewire::mount($expression, $parameters->toArray())->html();
+            $html = \Livewire\Livewire::mount($expression, $parameters->toArray());
         } elseif ($_instance->childHasBeenRendered($cachedKey)) {
             $componentId  = $_instance->getRenderedChildComponentId($cachedKey);
             $componentTag = $_instance->getRenderedChildComponentTagName($cachedKey);
@@ -48,7 +48,7 @@ class Livewire extends Tags
             $_instance->preserveRenderedChild($cachedKey);
         } else {
             $response = \Livewire\Livewire::mount($expression, $parameters->toArray());
-            $html     = $response->html();
+            $html     = $response;
             $_instance->logRenderedChild($cachedKey, $response->id(), \Livewire\Livewire::getRootElementTagName($html));
         }
         return $html;
@@ -104,16 +104,26 @@ class Livewire extends Tags
      */
     public function styles(): string
     {
-        return \Livewire\Livewire::styles();
+        return \Livewire\Mechanisms\FrontendAssets\FrontendAssets::styles();
     }
 
     /**
-     * Loading the livewire styles in antlers style
+     * Loading the livewire scripts in antlers style
      *
      * {{ livewire:scripts }}
      */
     public function scripts(): string
     {
-        return \Livewire\Livewire::scripts();
+        return \Livewire\Mechanisms\FrontendAssets\FrontendAssets::scripts();
+    }
+
+    /**
+     * Loading the livewire scripts in antlers style
+     *
+     * {{ livewire:scriptConfig }}
+     */
+    public function scriptConfig(): string
+    {
+        return \Livewire\Mechanisms\FrontendAssets\FrontendAssets::scriptConfig();
     }
 }
