@@ -8,7 +8,7 @@ use Statamic\Tags\Tags;
 class Livewire extends Tags
 {
     /**
-     * This will load your Livewire component in the antlers view
+     * This will load your Livewire component in the Antlers view
      *
      * {{ livewire:your-component-name }}
      *
@@ -23,27 +23,25 @@ class Livewire extends Tags
 
     /**
      * Sharing State Between Livewire And Alpine via entangle.
-     * https://laravel-livewire.com/docs/2.x/alpine-js#extracting-blade-components
      *
-     * * The method is a small variation from /Livewire/LivewireBladeDirectives
+     * The method is a small variation from \Livewire\Features\SupportEntangle\SupportEntangle
      * A few small changes had to be made to get the correct output.
      *
      * {{ livewire:entangle property='showDropdown' }}
      */
     public function entangle(): string
     {
-        //TODO[mr]: check (31.08.23 mr)
         $expression = $this->params->get('property');
-        $instanceId = $this->context['_instance']->id;
+        $instanceId = $this->context['__livewire']->getId();
 
-        if ((object)$expression instanceof \Livewire\WireDirective) {
+        // todo: this condition is just copied from the original code but not implemented nor tested yet
+        if ((object)($expression) instanceof \Livewire\WireDirective) {
             $value = $expression->value();
-            $modifier = $expression->hasModifier('defer') ? '.defer' : '';
-
-            return "window.Livewire.find('{$instanceId}').entangle('{$value}'){$modifier}";
+            $modifier = $expression->hasModifier('live') ? '.live' : '';
+            return "window.Livewire.find('$instanceId').entangle('$value')$modifier";
         }
 
-        return "window.Livewire.find('{$instanceId}').entangle('{$expression}')";
+        return "window.Livewire.find('$instanceId').entangle('$expression')";
     }
 
     /**
