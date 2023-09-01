@@ -12,48 +12,13 @@ class Livewire extends Tags
      *
      * {{ livewire:your-component-name }}
      *
-     * The code has been copied shameless from /Livewire/LivewireBladeDirectives
-     * A few small changes have been made to output the dom correctly.
-     *
-     * @param $expression
-     * @return mixed
+     * This is a very rudimentary implementation.
+     * The reference code in Livewire can be found here:
+     * \Livewire\Mechanisms\RenderComponent::livewire()
      */
-    public function wildcard($expression)
+    public function wildcard($expression): string
     {
-        /**
-         * Fetching all parameters from our livewire tag, to mount them as livewire parameters.
-         */
-        $parameters = $this->params;
-
-        /**
-         * Let the Livewire magic happen.
-         */
-        $lastArg = trim(last(explode(',', $expression)));
-
-        //TODO[mr]: check whole instance and caching stuff (31.08.23 mr)
-        // \Livewire\Mechanisms\RenderComponent::livewire() is the reference
-        if (Str::startsWith($lastArg, 'key(') && Str::endsWith($lastArg, ')')) {
-            $cachedKey = Str::replaceFirst('key(', '', Str::replaceLast(')', '', $lastArg));
-            $args      = explode(',', $expression);
-            array_pop($args);
-            $expression = implode(',', $args);
-        } else {
-            $cachedKey = "'" . Str::random(7) . "'";
-        }
-
-        if (! isset($_instance)) {
-            $html = \Livewire\Livewire::mount($expression, $parameters->toArray());
-        } elseif ($_instance->childHasBeenRendered($cachedKey)) {
-            $componentId  = $_instance->getRenderedChildComponentId($cachedKey);
-            $componentTag = $_instance->getRenderedChildComponentTagName($cachedKey);
-            $html         = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-            $_instance->preserveRenderedChild($cachedKey);
-        } else {
-            $response = \Livewire\Livewire::mount($expression, $parameters->toArray());
-            $html     = $response;
-            $_instance->logRenderedChild($cachedKey, $response->id(), \Livewire\Livewire::getRootElementTagName($html));
-        }
-        return $html;
+        return \Livewire\Livewire::mount($expression, $this->params->toArray(), Str::random(7));
     }
 
     /**
@@ -71,8 +36,7 @@ class Livewire extends Tags
         $expression = $this->params->get('property');
         $instanceId = $this->context['_instance']->id;
 
-        if ((object) $expression instanceof \Livewire\WireDirective)
-        {
+        if ((object)$expression instanceof \Livewire\WireDirective) {
             $value = $expression->value();
             $modifier = $expression->hasModifier('defer') ? '.defer' : '';
 
@@ -122,7 +86,7 @@ class Livewire extends Tags
     }
 
     /**
-     * Prevent livewire from auto-injecting styles and scripts.
+     * Prevent livewire from auto-injecting styles and scripts
      *
      * {{ livewire:scriptConfig }}
      */
