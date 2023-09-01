@@ -30,6 +30,8 @@ class Livewire extends Tags
          */
         $lastArg = trim(last(explode(',', $expression)));
 
+        //TODO[mr]: check whole instance and caching stuff (31.08.23 mr)
+        // \Livewire\Mechanisms\RenderComponent::livewire() is the reference
         if (Str::startsWith($lastArg, 'key(') && Str::endsWith($lastArg, ')')) {
             $cachedKey = Str::replaceFirst('key(', '', Str::replaceLast(')', '', $lastArg));
             $args      = explode(',', $expression);
@@ -65,6 +67,7 @@ class Livewire extends Tags
      */
     public function entangle(): string
     {
+        //TODO[mr]: check (31.08.23 mr)
         $expression = $this->params->get('property');
         $instanceId = $this->context['_instance']->id;
 
@@ -89,6 +92,7 @@ class Livewire extends Tags
      */
     public function this(): string
     {
+        //TODO[mr]: check (31.08.23 mr)
         $instanceId = $this->context['_instance']->id;
         $action = $this->params->take(1)->toArray();
         $method = key($action);
@@ -118,7 +122,7 @@ class Livewire extends Tags
     }
 
     /**
-     * Loading the livewire scripts in antlers style
+     * Prevent livewire from auto-injecting styles and scripts.
      *
      * {{ livewire:scriptConfig }}
      */
