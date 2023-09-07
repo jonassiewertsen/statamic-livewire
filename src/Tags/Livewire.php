@@ -19,24 +19,21 @@ class Livewire extends Tags
     /**
      * Sharing State Between Livewire And Alpine via entangle.
      *
-     * The method is a small variation from \Livewire\Features\SupportEntangle\SupportEntangle
-     * A few small changes had to be made to get the correct output.
-     *
-     * {{ livewire:entangle property='showDropdown' }}
+     * {{ livewire:entangle property="showDropdown" modifier="live" }}
      */
     public function entangle(): string
     {
-        $expression = $this->params->get('property');
+        $property = $this->params->get('property');
+        $modifier = $this->params->get('modifier');
         $instanceId = $this->context['__livewire']->getId();
 
-        // this condition is just copied from the original code but not implemented nor tested yet
-        if ((object)($expression) instanceof \Livewire\WireDirective) {
-            $value = $expression->value();
-            $modifier = $expression->hasModifier('live') ? '.live' : '';
-            return "window.Livewire.find('$instanceId').entangle('$value')$modifier";
+        $expression = ".entangle('{$property}')";
+
+        if ($modifier) {
+            $expression .= ".{$modifier}";
         }
 
-        return "window.Livewire.find('$instanceId').entangle('$expression')";
+        return "window.Livewire.find('$instanceId'){$expression}";
     }
 
     /**
