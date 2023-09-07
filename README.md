@@ -177,10 +177,10 @@ You can access and perform actions on the Livewire component like this:
 ```html
 <script>
     document.addEventListener('livewire:initialized', function () {
-        <!-- With Antlers -->
+        // With Antlers
         {{ livewire:this set="('name', 'Jack')" }}
         
-        <!-- With Blade -->
+        // With Blade
         @this.set('name', 'Jack')
     })
 </script>
@@ -189,7 +189,7 @@ It's worth mentioning that, since Livewire v3 now builds on top of Alpine, the `
 ```html
 <script>
     document.addEventListener('livewire:initialized', function () {
-        <!-- `{{ livewire:this }}` returns the instance of the current component-->
+        // `{{ livewire:this }}` returns the instance of the current component
         {{ livewire:this }}.set('name', 'Jack')
     })
 </script>
