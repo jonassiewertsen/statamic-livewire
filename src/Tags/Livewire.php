@@ -39,11 +39,17 @@ class Livewire extends Tags
     /**
      * Accessing the Livewire component.
      *
+     * {{ livewire:this }}
      * {{ livewire:this set="('name', 'Jack')" }}
      */
     public function this(): string
     {
         $instanceId = $this->context['__livewire']->getId();
+
+        if (!count($this->params)) {
+            return "window.Livewire.find('{$instanceId}')";
+        }
+
         $action = $this->params->take(1)->toArray();
         $method = key($action);
         $parameters = reset($action);

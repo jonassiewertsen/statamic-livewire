@@ -175,11 +175,24 @@ It's worth mentioning that, since Livewire v3 now builds on top of Alpine, the `
 You can access and perform actions on the Livewire component like this:
 
 ```html
-<!-- With Antlers -->
-{{ livewire:this set="('name', 'Jack')" }}
-
-<!-- With Blade -->
-@this.set('name', 'Jack')
+<script>
+    document.addEventListener('livewire:initialized', function () {
+        <!-- With Antlers -->
+        {{ livewire:this set="('name', 'Jack')" }}
+        
+        <!-- With Blade -->
+        @this.set('name', 'Jack')
+    })
+</script>
+```
+It's worth mentioning that, since Livewire v3 now builds on top of Alpine, the `@this` directive is not used widely anymore. Instead, it's possible to [access and manipulate the state directly via JavaScript](https://livewire.laravel.com/docs/properties#accessing-properties-from-javascript) / [the `$wire` object](https://livewire.laravel.com/docs/javascript#the-wire-object).
+```html
+<script>
+    document.addEventListener('livewire:initialized', function () {
+        <!-- `{{ livewire:this }}` returns the instance of the current component-->
+        {{ livewire:this }}.set('name', 'Jack')
+    })
+</script>
 ```
 ### Lazy Components
 Livewire allows you to [lazy load components](https://livewire.laravel.com/docs/lazy) that would otherwise slow down the initial page load. For this you can simply pass `lazy="true"` as argument to your component tag.
