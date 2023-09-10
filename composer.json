@@ -16,11 +16,13 @@
     },
     "authors": [
         {
-            "name": "Jonas Siewertsen"
+            "name": "Jonas Siewertsen",
+            "homepage": "https://jonassiewertsen.com",
         }
     ],
     "support": {
-        "email": "mail@jonassiewertsen.com"
+        "issues": "https://github.com/jonassiewertsen/statamic-livewire/issues",
+        "docs": "https://github.com/jonassiewertsen/statamic-livewire"
     },
     "require": {
         "php": "^8.1",
