@@ -175,6 +175,9 @@ class Foo extends Component
 {
     public EntryCollection $entries;
     public Entry $entry;
+
+    // normal livewire stuff
+}
 ```
 
 To make it work, you need to enable that feature first. 
