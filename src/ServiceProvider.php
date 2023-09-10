@@ -4,8 +4,6 @@ namespace Jonassiewertsen\Livewire;
 
 use Livewire\Livewire;
 use Statamic\Providers\AddonServiceProvider;
-use Jonassiewertsen\Livewire\Synthesizers\EntrySynthesizer;
-use Jonassiewertsen\Livewire\Synthesizers\EntryCollectionSynthesizer;
 
 class ServiceProvider extends AddonServiceProvider
 {
@@ -19,7 +17,27 @@ class ServiceProvider extends AddonServiceProvider
     {
         parent::boot();
 
-        Livewire::propertySynthesizer(EntryCollectionSynthesizer::class);
-        Livewire::propertySynthesizer(EntrySynthesizer::class);
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'statamic-livewire');
+
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../config/config.php' => config_path('statamic-livewire.php'),
+            ], 'statamic-livewire');
+        }
+
+        $this->bootSyntesizers();
+    }
+
+    protected function bootSyntesizers()
+    {
+        if (! config('statamic-livewire.synthesizers.enabled', false)) {
+            return;
+        }
+
+        $synthesizers = config('statamic-livewire.synthesizers.classes', []);
+
+        foreach ($synthesizers as $synthesizer) {
+            Livewire::propertySynthesizer($synthesizer);
+        }
     }
 }
