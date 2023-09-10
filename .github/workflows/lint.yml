@@ -1,0 +1,21 @@
+on:
+  push:
+
+jobs:
+  lint:
+    name: ":Lint"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: "Laravel Pint"
+        uses: aglipanci/laravel-pint-action@2.0.0
+        with:
+          preset: laravel
+          pintVersion: 1.13.1
+
+      - name: Commit changes to GitHub
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Laravel Pint Linting"
