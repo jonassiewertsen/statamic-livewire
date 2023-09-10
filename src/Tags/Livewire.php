@@ -2,94 +2,54 @@
 
 namespace Jonassiewertsen\Livewire\Tags;
 
-use Illuminate\Support\Str;
 use Statamic\Tags\Tags;
 
 class Livewire extends Tags
 {
     /**
-     * This will load your Livewire component in the antlers view
+     * This will load your Livewire component in the Antlers view
      *
      * {{ livewire:your-component-name }}
-     *
-     * The code has been copied shameless from /Livewire/LivewireBladeDirectives
-     * A few small changes have been made to output the dom correctly.
-     *
-     * @param $expression
-     * @return mixed
      */
-    public function wildcard($expression)
+    public function wildcard($expression): string
     {
-        /**
-         * Fetching all parameters from our livewire tag, to mount them as livewire parameters.
-         */
-        $parameters = $this->params;
-
-        /**
-         * Let the Livewire magic happen.
-         */
-        $lastArg = trim(last(explode(',', $expression)));
-
-        if (Str::startsWith($lastArg, 'key(') && Str::endsWith($lastArg, ')')) {
-            $cachedKey = Str::replaceFirst('key(', '', Str::replaceLast(')', '', $lastArg));
-            $args      = explode(',', $expression);
-            array_pop($args);
-            $expression = implode(',', $args);
-        } else {
-            $cachedKey = "'" . Str::random(7) . "'";
-        }
-
-        if (! isset($_instance)) {
-            $html = \Livewire\Livewire::mount($expression, $parameters->toArray())->html();
-        } elseif ($_instance->childHasBeenRendered($cachedKey)) {
-            $componentId  = $_instance->getRenderedChildComponentId($cachedKey);
-            $componentTag = $_instance->getRenderedChildComponentTagName($cachedKey);
-            $html         = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-            $_instance->preserveRenderedChild($cachedKey);
-        } else {
-            $response = \Livewire\Livewire::mount($expression, $parameters->toArray());
-            $html     = $response->html();
-            $_instance->logRenderedChild($cachedKey, $response->id(), \Livewire\Livewire::getRootElementTagName($html));
-        }
-        return $html;
+        return \Livewire\Livewire::mount($expression, $this->params->toArray());
     }
 
     /**
      * Sharing State Between Livewire And Alpine via entangle.
-     * https://laravel-livewire.com/docs/2.x/alpine-js#extracting-blade-components
      *
-     * * The method is a small variation from /Livewire/LivewireBladeDirectives
-     * A few small changes had to be made to get the correct output.
-     *
-     * {{ livewire:entangle property='showDropdown' }}
+     * {{ livewire:entangle property="showDropdown" modifier="live" }}
      */
     public function entangle(): string
     {
-        $expression = $this->params->get('property');
-        $instanceId = $this->context['_instance']->id;
+        $property = $this->params->get('property');
+        $modifier = $this->params->get('modifier');
+        $instanceId = $this->context['__livewire']->getId();
 
-        if ((object) $expression instanceof \Livewire\WireDirective)
-        {
-            $value = $expression->value();
-            $modifier = $expression->hasModifier('defer') ? '.defer' : '';
+        $expression = ".entangle('{$property}')";
 
-            return "window.Livewire.find('{$instanceId}').entangle('{$value}'){$modifier}";
+        if ($modifier) {
+            $expression .= ".{$modifier}";
         }
 
-        return "window.Livewire.find('{$instanceId}').entangle('{$expression}')";
+        return "window.Livewire.find('$instanceId'){$expression}";
     }
 
     /**
      * Accessing the Livewire component.
      *
-     * The method is a small variation from /Livewire/LivewireBladeDirectives
-     * A few small changes had to be made to get the correct output.
-     *
+     * {{ livewire:this }}
      * {{ livewire:this set="('name', 'Jack')" }}
      */
     public function this(): string
     {
-        $instanceId = $this->context['_instance']->id;
+        $instanceId = $this->context['__livewire']->getId();
+
+        if (!count($this->params)) {
+            return "window.Livewire.find('{$instanceId}')";
+        }
+
         $action = $this->params->take(1)->toArray();
         $method = key($action);
         $parameters = reset($action);
@@ -104,16 +64,26 @@ class Livewire extends Tags
      */
     public function styles(): string
     {
-        return \Livewire\Livewire::styles();
+        return \Livewire\Mechanisms\FrontendAssets\FrontendAssets::styles();
     }
 
     /**
-     * Loading the livewire styles in antlers style
+     * Loading the livewire scripts in antlers style
      *
      * {{ livewire:scripts }}
      */
     public function scripts(): string
     {
-        return \Livewire\Livewire::scripts();
+        return \Livewire\Mechanisms\FrontendAssets\FrontendAssets::scripts();
+    }
+
+    /**
+     * Prevent livewire from auto-injecting styles and scripts
+     *
+     * {{ livewire:scriptConfig }}
+     */
+    public function scriptConfig(): string
+    {
+        return \Livewire\Mechanisms\FrontendAssets\FrontendAssets::scriptConfig();
     }
 }

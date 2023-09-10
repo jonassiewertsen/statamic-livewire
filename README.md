@@ -1,6 +1,6 @@
 # Statamic Livewire
 <!-- statamic:hide -->
-![Statamic 3.0+](https://img.shields.io/badge/Statamic-3.0+-FF269E?style=for-the-badge&link=https://statamic.com)
+![Statamic 4.0+](https://img.shields.io/badge/Statamic-4.0+-FF269E?style=for-the-badge&link=https://statamic.com)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/jonassiewertsen/statamic-livewire.svg?style=for-the-badge)](https://packagist.org/packages/jonassiewertsen/statamic-livewire)
 <!-- /statamic:hide -->
 
@@ -21,34 +21,38 @@ composer require jonassiewertsen/statamic-livewire
 ```
 
 ## General documentation
-[Laravel Livewire Docs](https://laravel-livewire.com/docs/quickstart)
+[Livewire Docs](https://livewire.laravel.com/docs/quickstart)
 
-## Setup inside your template
+## Livewire scripts and styles
 
-Include the Livewire styles and scripts __on every page__ that will be using Livewire:
+Livewire injects its styles and scripts automatically into the page. However, if you want to include them [manually](https://livewire.laravel.com/docs/installation#manually-including-livewires-frontend-assets), you can do so by using the respective tags `{{ livewire:styles }}` and`{{ livewire:scripts }}`.
 
-```html
-...
-    <!-- If using Antlers -->
-    {{ livewire:styles }}
+In case you need to include some custom Alpine plugins, you can [bundle the assets yourself](https://livewire.laravel.com/docs/installation#manually-bundling-livewire-and-alpine) and disable the automatic injection by using the `{{ livewire:scriptConfig }}` tag. Do not forget to include the `{{ livewire:styles }}` tag as well.
 
-    <!-- If using Blade -->
-    @livewireStyles
-</head>
-<body>
-
-    ...
-    <!-- If using Antlers -->
-    {{ livewire:scripts }}
-
-    <!-- Blade -->
-    @livewireScripts
-</body>
+```html 
+<html>
+    <head>
+        <!-- If using Antlers -->
+        {{ livewire:styles }}
+    
+        <!-- If using Blade -->
+        @livewireStyles
+    </head>
+    <body>
+    
+        ...
+        <!-- If using Antlers -->
+        {{ livewire:scripts }} / {{ livewire:scriptsConfig }}
+    
+        <!-- Blade -->
+        @livewireScripts / @livewireScriptConfig
+    </body>
 </html>
 ```
 
 ### Include components
-You can create Livewire components as described in the general documentation. To include your Livewire component:
+You can create Livewire components as described in the [general documentation](https://livewire.laravel.com/docs/components). 
+To include your Livewire component:
 ```html
 <body>
     <!-- If using Antlers -->
@@ -62,7 +66,7 @@ You can create Livewire components as described in the general documentation. To
 ### Blade or Antlers? Both!
 If creating a Livewire component, you need to render a template file
 
-```
+```php
 namespace App\Http\Livewire;
 
 use Livewire\Component;
@@ -75,10 +79,10 @@ class Counter extends Component
     }
 }
 ```
-More Information: (https://laravel-livewire.com/docs/quickstart#create-a-component)
+More Information: (https://livewire.laravel.com/docs/components)
 
 Normally your template file would be a blade file, named `counter.blade.php`. Great, but what about Antlers?
-Rename your template to `counter.antlers.html`, use Antlers syntax and do wathever you like. **No need to change** anything inside your component Controller. How cool is that?
+Rename your template to `counter.antlers.html`, use Antlers syntax and do whatever you like. **No need to change** anything inside your component Controller. How cool is that?
 
 ### Passing Initial Parameters
 You can pass data into a component by passing additional parameters
@@ -110,13 +114,13 @@ class ShowContact extends Component
 }
 ```
 
-The [Official Livewire documentation](https://laravel-livewire.com/docs/rendering-components)
+The [Official Livewire documentation](https://livewire.laravel.com/docs/components#rendering-components)
 
 ### Paginating Data
 You can paginate results by using the WithPagination trait.
 
 #### Blade
-To use pagination with Blade, please use the `Livewire\WithPagination` namespace for your trait as described in the [Livewire docs](https://laravel-livewire.com/docs/2.x/pagination#paginating-data).
+To use pagination with Blade, please use the `Livewire\WithPagination` namespace for your trait as described in the [Livewire docs](https://livewire.laravel.com/docs/pagination#basic-usage).
 
 ### Antlers
 Pagination with Antlers does work similar. Make sure to use the `Jonassiewertsen\Livewire\WithPagination` namespace for your trait if working with Antlers. 
@@ -154,46 +158,68 @@ class ShowArticles extends Component
 ```
 
 ### Entangle: Sharing State Between Livewire And Alpine
-In case you want to share state between Livewire and Alpine, there is a Blade directive called @entangle:\
-[Livewire docs](https://laravel-livewire.com/docs/2.x/alpine-js#:~:text=Livewire%20has%20an%20incredibly%20powerful,other%20will%20also%20be%20changed.)
-
-To be usable with Antlers, we do provide an dedicated Tag:
+In case you want to share state between Livewire and Alpine, there is a Blade directive called `@entangle`. To be usable with Antlers, we do provide a dedicated tag:
 ```html
 <!-- With Antlers -->
-<div x-data="{ open: {{ livewire:entangle property='showDropdown' }} }">
+<div x-data="{ open: {{ livewire:entangle property='showDropdown' modifier='live' }} }">
         
 <!-- With Blade -->
-<div x-data="{ open: @entangle('showDropdown').defer }">
+<div x-data="{ open: @entangle('showDropdown').live }">
 ```
 
+It's worth mentioning that, since Livewire v3 now builds on top of Alpine, the `@entangle` directive is not documented anymore. Instead, it's possible to entangle the data via [the `$wire` object](https://livewire.laravel.com/docs/javascript#the-wire-object).
+```html
+<div x-data="{ open: $wire.entangle('showDropdown', true) }">        
+```
 ### This: Accessing the Livewire component
 You can access and perform actions on the Livewire component like this:
 
 ```html
-<!-- With Antlers -->
-{{ livewire:this set="('name', 'Jack')" }}
+<script>
+    document.addEventListener('livewire:initialized', function () {
+        // With Antlers
+        {{ livewire:this set="('name', 'Jack')" }}
+        
+        // With Blade
+        @this.set('name', 'Jack')
+    })
+</script>
+```
+It's worth mentioning that, since Livewire v3 now builds on top of Alpine, the `@this` directive is not used widely anymore. Instead, it's possible to [access and manipulate the state directly via JavaScript](https://livewire.laravel.com/docs/properties#accessing-properties-from-javascript) / [the `$wire` object](https://livewire.laravel.com/docs/javascript#the-wire-object).
+```html
+<script>
+    document.addEventListener('livewire:initialized', function () {
+        // `{{ livewire:this }}` returns the instance of the current component
+        {{ livewire:this }}.set('name', 'Jack')
+    })
+</script>
+```
+### Lazy Components
+Livewire allows you to [lazy load components](https://livewire.laravel.com/docs/lazy) that would otherwise slow down the initial page load. For this you can simply pass `lazy="true"` as argument to your component tag.
 
-<!-- With Blade -->
-@this.set('name', 'Jack')
+```html
+<!-- With Antlers -->
+{{ livewire:your-component-name :contact="contact" lazy="true" }}
 ```
 
 ## Other Statamic Livewire Packages
 If using Livewire, those packages might be interesting for you as well:
 - [Statamic live search](https://github.com/jonassiewertsen/statamic-live-search)
 - [Statamic Livewire Forms](https://github.com/aerni/statamic-livewire-forms)
+- [Antlers Components](https://github.com/Stillat/antlers-components)
 
-Did I miss a link? let me know!
+Did I miss a link? Let me know!
 
 ## Credits
 
-Thanks to:\
+Thanks to:
 - [Caleb](https://github.com/calebporzio) and the community for building [Livewire](https://laravel-livewire.com/)
 - [Austenc](https://github.com/austenc) for the Statamic marketplace preview image
 
 ## Requirements
-- PHP 7.4 or 8.0
-- Laravel 7, 8, 9 or 10
-- Statamic 3 or 4
+- PHP 8.1
+- Laravel 10
+- Statamic 4
 
 # Support
 I love to share with the community. Nevertheless, it does take a lot of work, time and effort. 
@@ -202,4 +228,3 @@ I love to share with the community. Nevertheless, it does take a lot of work, ti
 
 # License 
 This plugin is published under the MIT license. Feel free to use it and remember to spread love.
-

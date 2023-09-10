@@ -6,7 +6,7 @@ trait WithPagination
 {
     use \Livewire\WithPagination;
 
-    public function withPagination($key, $paginator)
+    public function withPagination($key, $paginator): array
     {
         return [
             $key => $paginator->items(),
