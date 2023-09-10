@@ -157,6 +157,32 @@ class ShowArticles extends Component
 }
 ```
 
+### EXPERIMENTAL: Statamic Support
+As a little experiment, support for an Entry or EntryCollection has been added, so you can make an entry or a entry collection simply a public property and it just works. 
+
+Supported types:
+- Statamic\Entries\EntryCollection;
+- Statamic\Entries\Entry;
+
+```php
+namespace App\Livewire;
+
+use Livewire\Component;
+use Statamic\Entries\EntryCollection;
+use Statamic\Entries\Entry;
+
+class Foo extends Component
+{
+    public EntryCollection $entries;
+    public Entry $entry;
+```
+
+To make it work, you need to enable that feature first. 
+
+1. php artisan vendor:publish
+2. Select statamic-livewire in the list
+3. Enable synthesizers
+
 ### Entangle: Sharing State Between Livewire And Alpine
 In case you want to share state between Livewire and Alpine, there is a Blade directive called `@entangle`. To be usable with Antlers, we do provide a dedicated tag:
 ```html
