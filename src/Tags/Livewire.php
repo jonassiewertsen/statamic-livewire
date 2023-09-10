@@ -46,7 +46,7 @@ class Livewire extends Tags
     {
         $instanceId = $this->context['__livewire']->getId();
 
-        if (!count($this->params)) {
+        if (! count($this->params)) {
             return "window.Livewire.find('{$instanceId}')";
         }
 

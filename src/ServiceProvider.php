@@ -17,11 +17,11 @@ class ServiceProvider extends AddonServiceProvider
     {
         parent::boot();
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'statamic-livewire');
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'statamic-livewire');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/config.php' => config_path('statamic-livewire.php'),
+                __DIR__.'/../config/config.php' => config_path('statamic-livewire.php'),
             ], 'statamic-livewire');
         }
 
