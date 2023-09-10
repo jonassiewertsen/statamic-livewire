@@ -9,12 +9,12 @@ use Statamic\Entries\EntryCollection as StatamicEntryCollection;
 class EntryCollectionSynthesizer extends Synth
 {
     public static $key = 'entry-collection';
- 
+
     public static function match($target)
     {
         return $target instanceof StatamicEntryCollection;
     }
- 
+
     public function dehydrate($target)
     {
         $data = [];
@@ -29,9 +29,9 @@ class EntryCollectionSynthesizer extends Synth
             ];
         }
 
-        return [ $data, [] ];
+        return [$data, []];
     }
- 
+
     public function hydrate($values)
     {
         $items = [];
@@ -49,6 +49,6 @@ class EntryCollectionSynthesizer extends Synth
             $items[] = $entry;
         }
 
-        return New StatamicEntryCollection($items);
+        return new StatamicEntryCollection($items);
     }
 }

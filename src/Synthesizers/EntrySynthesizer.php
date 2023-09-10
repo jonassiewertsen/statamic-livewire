@@ -9,24 +9,24 @@ use Statamic\Facades\Entry;
 class EntrySynthesizer extends Synth
 {
     public static $key = 'entry-collection';
- 
+
     public static function match($target)
     {
         return $target instanceof StatamicEntry;
     }
- 
+
     public function dehydrate($entry)
     {
-        return [ 
+        return [
             [
                 'collection' => $entry->collection()->handle() ?? null,
                 'data' => $entry->data()->all(),
                 'date' => $entry->collection()->dated() ? $entry->date() : null,
                 'id' => $entry->id(),
                 'slug' => $entry->slug() ?? null,
-            ], [] ];
+            ], []];
     }
- 
+
     public function hydrate($value)
     {
         $entry = Entry::make()
