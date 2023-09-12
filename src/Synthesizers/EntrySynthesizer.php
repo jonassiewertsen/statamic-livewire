@@ -32,7 +32,8 @@ class EntrySynthesizer extends Synth
         $entry = Entry::make()
             ->id($value['id'])
             ->slug($value['slug'] ?? null)
-            ->collection($value['collection'] ?? null);
+            ->collection($value['collection'] ?? null)
+            ->data($value['data']);
 
         if ($value['date']) {
             $entry->date($value['date'] ?? null);
