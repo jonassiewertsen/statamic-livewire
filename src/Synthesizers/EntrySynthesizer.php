@@ -8,7 +8,7 @@ use Statamic\Facades\Entry;
 
 class EntrySynthesizer extends Synth
 {
-    public static $key = 'entry-collection';
+    public static $key = 'statamic-entry';
 
     public static function match($target)
     {
