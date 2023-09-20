@@ -8,7 +8,7 @@ use Statamic\Entries\EntryCollection as StatamicEntryCollection;
 
 class EntryCollectionSynthesizer extends Synth
 {
-    public static $key = 'entry-collection';
+    public static $key = 'statamic-entry-collection';
 
     public static function match($target)
     {
