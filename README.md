@@ -25,7 +25,7 @@ composer require jonassiewertsen/statamic-livewire
 
 ## Livewire scripts and styles
 
-Livewire injects its styles and scripts automatically into the page. However, if you want to include them [manually](https://livewire.laravel.com/docs/installation#manually-including-livewires-frontend-assets), you can do so by using the respective tags `{{ livewire:styles }}` and`{{ livewire:scripts }}`.
+Livewire injects its styles and scripts automatically into the page. However, this does not work if caching is enabled (`half`/`full`). In that case, you want to include them [manually](https://livewire.laravel.com/docs/installation#manually-including-livewires-frontend-assets), by using the respective tags `{{ livewire:styles }}` and`{{ livewire:scripts }}`.
 
 In case you need to include some custom Alpine plugins, you can [bundle the assets yourself](https://livewire.laravel.com/docs/installation#manually-bundling-livewire-and-alpine) and disable the automatic injection by using the `{{ livewire:scriptConfig }}` tag. Do not forget to include the `{{ livewire:styles }}` tag as well.
 
