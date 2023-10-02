@@ -42,7 +42,7 @@ In case you need to include some custom Alpine plugins, you can [bundle the asse
     
         ...
         <!-- If using Antlers -->
-        {{ livewire:scripts }} / {{ livewire:scriptsConfig }}
+        {{ livewire:scripts }} / {{ livewire:scriptConfig }}
     
         <!-- Blade -->
         @livewireScripts / @livewireScriptConfig
