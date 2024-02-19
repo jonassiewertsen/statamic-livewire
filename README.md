@@ -20,6 +20,11 @@ Pull in the Livewire package with composer
 composer require jonassiewertsen/statamic-livewire
 ```
 
+## Upgrade
+
+Make sure to read the Livewire upgarde guide, in case you're updating to `Statamic Livewire` 3, as there are breaking changes:
+https://livewire.laravel.com/docs/upgrading
+
 ## General documentation
 [Livewire Docs](https://livewire.laravel.com/docs/quickstart)
 
