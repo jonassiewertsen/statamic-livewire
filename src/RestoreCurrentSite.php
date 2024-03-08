@@ -7,17 +7,17 @@ use Livewire\Attributes\Locked;
 use Statamic\Facades\Site;
 use Statamic\Statamic;
 
-trait RestoreSite
+trait RestoreCurrentSite
 {
     #[Locked]
     public string $siteHandle = "";
 
-    public function mountRestoreSite(): void
+    public function mountRestoreCurrentSite(): void
     {
         $this->siteHandle = Site::current()->handle();
     }
 
-    public function hydrateRestoreSite(): void
+    public function hydrateRestoreCurrentSite(): void
     {
         Site::setCurrent($this->siteHandle);
 
