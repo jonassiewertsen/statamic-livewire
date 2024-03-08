@@ -1,6 +1,6 @@
 <?php
 
-namespace Jonassiewertsen\Livewire\Traits;
+namespace Jonassiewertsen\Livewire;
 
 use Livewire\Attributes\Locked;
 use Statamic\Facades\Site;
