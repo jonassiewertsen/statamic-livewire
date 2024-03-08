@@ -10,7 +10,7 @@ use Statamic\Statamic;
 trait RestoreCurrentSite
 {
     #[Locked]
-    public string $siteHandle = "";
+    public string $siteHandle = '';
 
     public function mountRestoreCurrentSite(): void
     {
