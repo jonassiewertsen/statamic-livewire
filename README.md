@@ -121,6 +121,28 @@ class ShowContact extends Component
 
 The [Official Livewire documentation](https://livewire.laravel.com/docs/components#rendering-components)
 
+### Multi-Site
+When using Livewire in a Multi-Site context, the current site gets lost between requests. There is a trait (`\Jonassiewertsen\Livewire\RestoreCurrentSite`) to solve that. Just include it in your component and use `Site::current()` as you normally do.
+```php
+class ShowArticles extends Component
+{
+    use \Jonassiewertsen\Livewire\RestoreCurrentSite;
+
+    protected function entries()
+    {
+        return Entry::query()
+            ->where('collection', 'articles')
+            ->where('site', Site::current())
+            ->get();
+    }
+
+    public function render()
+    {
+        return view('livewire.blog-entries', $this->entries());
+    }
+}
+```
+
 ### Paginating Data
 You can paginate results by using the WithPagination trait.
 
