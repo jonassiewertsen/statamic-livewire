@@ -119,7 +119,22 @@ class ShowContact extends Component
 }
 ```
 
-The [Official Livewire documentation](https://livewire.laravel.com/docs/components#rendering-components)
+The [Official Livewire documentation](https://livewire.laravel.com/docs/components#rendering-components) provides more information.
+
+### Keying Components
+Livewire components are automatically keyed by default. If you want to manually key a component, you can use the `key` attribute.
+```html
+<!-- If using Antlers -->
+{{ contacts }}
+    {{ livewire:your-component-name :key="id" }}
+{{ /contacts }}
+
+<!-- If using Blade -->
+@foreach ($contacts as $contact)
+    <livewire:your-component-name :key="$contact->id" />
+@endforeach
+```
+The [Official Livewire documentation](https://livewire.laravel.com/docs/components#adding-wirekey-to-foreach-loops) provides more information.
 
 ### Multi-Site
 When using Livewire in a Multi-Site context, the current site gets lost between requests. There is a trait (`\Jonassiewertsen\Livewire\RestoreCurrentSite`) to solve that. Just include it in your component and use `Site::current()` as you normally do.
