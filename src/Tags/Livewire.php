@@ -13,7 +13,7 @@ class Livewire extends Tags
      */
     public function wildcard($expression): string
     {
-        return \Livewire\Livewire::mount($expression, $this->params->toArray());
+        return \Livewire\Livewire::mount($expression, $this->params->except('key')->toArray(), $this->params->only('key')->first());
     }
 
     /**
@@ -46,7 +46,7 @@ class Livewire extends Tags
     {
         $instanceId = $this->context['__livewire']->getId();
 
-        if (! count($this->params)) {
+        if (!count($this->params)) {
             return "window.Livewire.find('{$instanceId}')";
         }
 
