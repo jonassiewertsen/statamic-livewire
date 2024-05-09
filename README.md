@@ -11,7 +11,7 @@ Visit my newest project Statamictutorials.com. Many tutorials are free.
 ## Description
 A third-party [Laravel Livewire](https://laravel-livewire.com/) integration for Statamic. 
 
-It's as easy as it get's to get stared with Livewire if using Statamic 3. 
+It's as easy as it get's to get stared with Livewire if using Statamic.
 
 ## Installation
 Pull in the Livewire package with composer
@@ -289,8 +289,8 @@ Thanks to:
 
 ## Requirements
 - PHP 8.1
-- Laravel 10
-- Statamic 4
+- Laravel 10 or 11
+- Statamic 4 or 5
 
 # Support
 I love to share with the community. Nevertheless, it does take a lot of work, time and effort. 
