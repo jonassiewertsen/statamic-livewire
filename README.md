@@ -284,6 +284,7 @@ Did I miss a link? Let me know!
 ## Credits
 
 Thanks to:
+- [Marco Rieser](https://github.com/marcorieser) to help maintaining this package
 - [Caleb](https://github.com/calebporzio) and the community for building [Livewire](https://laravel-livewire.com/)
 - [Austenc](https://github.com/austenc) for the Statamic marketplace preview image
 
