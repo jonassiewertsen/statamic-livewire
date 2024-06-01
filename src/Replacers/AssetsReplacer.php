@@ -1,6 +1,6 @@
 <?php
 
-namespace Jonassiewertsen\Livewire;
+namespace Jonassiewertsen\Livewire\Replacers;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
@@ -9,7 +9,7 @@ use Livewire\Features\SupportScriptsAndAssets\SupportScriptsAndAssets;
 use Livewire\Mechanisms\FrontendAssets\FrontendAssets;
 use Statamic\StaticCaching\Replacer;
 
-class LivewireReplacer implements Replacer
+class AssetsReplacer implements Replacer
 {
     public function prepareResponseToCache(Response $responseToBeCached, Response $initialResponse)
     {

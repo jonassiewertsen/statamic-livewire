@@ -3,6 +3,7 @@
 namespace Jonassiewertsen\Livewire;
 
 use Livewire\Livewire;
+use Statamic\StaticCaching\Replacer;
 use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
@@ -23,10 +24,19 @@ class ServiceProvider extends AddonServiceProvider
             ], 'statamic-livewire');
         }
 
+        $this->bootReplacers();
         $this->bootSyntesizers();
     }
 
-    protected function bootSyntesizers()
+    protected function bootReplacers(): void
+    {
+        config()->set('statamic.static_caching.replacers', array_merge(
+            config('statamic.static_caching.replacers'),
+            config('statamic-livewire.replacers')
+        ));
+    }
+
+    protected function bootSyntesizers(): void
     {
         if (! config('statamic-livewire.synthesizers.enabled', false)) {
             return;
