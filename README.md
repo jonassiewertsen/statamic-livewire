@@ -11,7 +11,7 @@ Visit my newest project Statamictutorials.com. Many tutorials are free.
 ## Description
 A third-party [Laravel Livewire](https://laravel-livewire.com/) integration for Statamic. 
 
-It's as easy as it get's to get stared with Livewire if using Statamic.
+It's as easy as it gets to get started with Livewire if using Statamic.
 
 ## Installation
 Pull in the Livewire package with composer
@@ -20,19 +20,8 @@ Pull in the Livewire package with composer
 composer require jonassiewertsen/statamic-livewire
 ```
 
-## Upgrade
-
-Make sure to read the Livewire upgarde guide, in case you're updating to `Statamic Livewire` 3, as there are breaking changes:
-https://livewire.laravel.com/docs/upgrading
-
-## General documentation
-[Livewire Docs](https://livewire.laravel.com/docs/quickstart)
-
-## Livewire scripts and styles
-
-Livewire injects its styles and scripts automatically into the page. However, this does not work if caching is enabled (`half`/`full`). In that case, you want to include them [manually](https://livewire.laravel.com/docs/installation#manually-including-livewires-frontend-assets), by using the respective tags `{{ livewire:styles }}` and`{{ livewire:scripts }}`.
-
-In case you need to include some custom Alpine plugins, you can [bundle the assets yourself](https://livewire.laravel.com/docs/installation#manually-bundling-livewire-and-alpine) and disable the automatic injection by using the `{{ livewire:scriptConfig }}` tag. Do not forget to include the `{{ livewire:styles }}` tag as well.
+### Manually including Livewire's frontend assets
+By default, Livewire injects the JavaScript and CSS assets it needs into each page that includes a Livewire component. If you want more control over this behavior, you can [manually include the assets](https://livewire.laravel.com/docs/installation#manually-including-livewires-frontend-assets) on a page using the following Antlers tags or Blade directives:
 
 ```html 
 <html>
@@ -47,13 +36,55 @@ In case you need to include some custom Alpine plugins, you can [bundle the asse
     
         ...
         <!-- If using Antlers -->
-        {{ livewire:scripts }} / {{ livewire:scriptConfig }}
+        {{ livewire:scripts }}
     
         <!-- Blade -->
-        @livewireScripts / @livewireScriptConfig
+        @livewireScripts
     </body>
 </html>
 ```
+
+### Manually bundling Livewire and Alpine
+If you need to include some custom Alpine plugins, you need to [manually bundle the Livewire and Alpine assets](https://livewire.laravel.com/docs/installation#manually-bundling-livewire-and-alpine) and disable the automatic injection by using the following Antlers tag or Blade directive. Do not forget to include the Livewire styles as well.
+
+```html 
+<html>
+    <head>
+        <!-- If using Antlers -->
+        {{ livewire:styles }}
+    
+        <!-- If using Blade -->
+        @livewireStyles
+    </head>
+    <body>
+    
+        ...
+        <!-- If using Antlers -->
+        {{ livewire:scriptConfig }}
+    
+        <!-- Blade -->
+        @livewireScriptConfig
+    </body>
+</html>
+```
+
+### Static caching
+If you use half or full static caching, add the `LivewireReplacer` to the `replacers` array. Make sure to add this replacer after the `CsrfTokenReplacer` replacer.
+
+```php
+'replacers' => [
+    \Statamic\StaticCaching\Replacers\CsrfTokenReplacer::class,
+    \Statamic\StaticCaching\Replacers\LivewireReplacer::class,
+],
+```
+
+## Upgrade
+
+Make sure to read the Livewire upgrade guide, in case you're updating to `Statamic Livewire` 3, as there are breaking changes:
+https://livewire.laravel.com/docs/upgrading
+
+## General documentation
+[Livewire Docs](https://livewire.laravel.com/docs/quickstart)
 
 ### Include components
 You can create Livewire components as described in the [general documentation](https://livewire.laravel.com/docs/components). 
