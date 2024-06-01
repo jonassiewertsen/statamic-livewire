@@ -3,8 +3,10 @@
 namespace Jonassiewertsen\Livewire;
 
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 use Livewire\Features\SupportAutoInjectedAssets\SupportAutoInjectedAssets;
 use Livewire\Features\SupportScriptsAndAssets\SupportScriptsAndAssets;
+use Livewire\Mechanisms\FrontendAssets\FrontendAssets;
 use Statamic\StaticCaching\Replacer;
 
 class LivewireReplacer implements Replacer
@@ -29,6 +31,16 @@ class LivewireReplacer implements Replacer
 
     public function replaceInCachedResponse(Response $response)
     {
-        //
+        if (Str::contains($response, app(FrontendAssets::class)->scripts())) {
+            return;
+        }
+
+        if (Str::contains($response, app(FrontendAssets::class)->scriptConfig())) {
+            return;
+        }
+
+        app(FrontendAssets::class)->hasRenderedScripts = false;
+
+        app('livewire')->forceAssetInjection();
     }
 }
