@@ -21,11 +21,12 @@ class LivewireReplacer implements Replacer
             return;
         }
 
-        $assetsHead = implode('', $assets);
-        $assetsBody = '';
-
         $responseToBeCached->setContent(
-            SupportAutoInjectedAssets::injectAssets($content, $assetsHead, $assetsBody)
+            SupportAutoInjectedAssets::injectAssets(
+                html: $content,
+                assetsHead: implode('', $assets),
+                assetsBody: ''
+            )
         );
     }
 
