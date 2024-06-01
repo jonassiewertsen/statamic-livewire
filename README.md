@@ -69,12 +69,11 @@ If you need to include some custom Alpine plugins, you need to [manually bundle 
 ```
 
 ### Static caching
-If you use half or full static caching, add the `LivewireReplacer` to the `replacers` array. Make sure to add this replacer after the `CsrfTokenReplacer` replacer.
+This addon adds an `AssetsReplacer` class to make Livewire compatible with half and full static caching. You may customize the replacers in the config of this addon:
 
 ```php
 'replacers' => [
-    \Statamic\StaticCaching\Replacers\CsrfTokenReplacer::class,
-    \Statamic\StaticCaching\Replacers\LivewireReplacer::class,
+    \Jonassiewertsen\Livewire\Replacers\AssetsReplacer::class,
 ],
 ```
 
