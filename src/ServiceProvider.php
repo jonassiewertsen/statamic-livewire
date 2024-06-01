@@ -3,7 +3,6 @@
 namespace Jonassiewertsen\Livewire;
 
 use Livewire\Livewire;
-use Statamic\StaticCaching\Replacer;
 use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
