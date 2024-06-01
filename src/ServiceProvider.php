@@ -13,10 +13,8 @@ class ServiceProvider extends AddonServiceProvider
         'Jonassiewertsen\Livewire\Tags\Livewire',
     ];
 
-    public function boot(): void
+    public function bootAddon(): void
     {
-        parent::boot();
-
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'statamic-livewire');
 
         if ($this->app->runningInConsole()) {
