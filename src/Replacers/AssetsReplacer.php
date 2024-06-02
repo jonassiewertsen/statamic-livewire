@@ -6,6 +6,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Livewire\Features\SupportAutoInjectedAssets\SupportAutoInjectedAssets;
 use Livewire\Features\SupportScriptsAndAssets\SupportScriptsAndAssets;
+use Livewire\Livewire;
 use Livewire\Mechanisms\FrontendAssets\FrontendAssets;
 use Statamic\StaticCaching\Replacer;
 
@@ -32,16 +33,16 @@ class AssetsReplacer implements Replacer
 
     public function replaceInCachedResponse(Response $response)
     {
-        if (Str::contains($response, app(FrontendAssets::class)->scripts())) {
+        if (Str::contains($response, FrontendAssets::scripts())) {
             return;
         }
 
-        if (Str::contains($response, app(FrontendAssets::class)->scriptConfig())) {
+        if (Str::contains($response, FrontendAssets::scriptConfig())) {
             return;
         }
 
         app(FrontendAssets::class)->hasRenderedScripts = false;
 
-        app('livewire')->forceAssetInjection();
+        Livewire::forceAssetInjection();
     }
 }
