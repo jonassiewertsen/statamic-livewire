@@ -27,6 +27,7 @@ return [
         'classes' => [
             \Jonassiewertsen\Livewire\Synthesizers\EntryCollectionSynthesizer::class,
             \Jonassiewertsen\Livewire\Synthesizers\EntrySynthesizer::class,
+            \Jonassiewertsen\Livewire\Synthesizers\FieldtypeSynthesizer::class,
             \Jonassiewertsen\Livewire\Synthesizers\ValueSynthesizer::class,
         ],
     ],
