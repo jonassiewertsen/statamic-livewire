@@ -25,7 +25,7 @@ class ValueSynthesizer extends Synth
             'handle' => $value->handle,
             'fieldtype' => $value->fieldtype,
             'augmentable' => $value->augmentable,
-            'shallow' =>  $value->shallow,
+            'shallow' => $value->shallow,
         ];
 
         foreach ($data as $key => $child) {
