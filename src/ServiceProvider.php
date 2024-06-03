@@ -13,10 +13,8 @@ class ServiceProvider extends AddonServiceProvider
         'Jonassiewertsen\Livewire\Tags\Livewire',
     ];
 
-    public function boot(): void
+    public function bootAddon(): void
     {
-        parent::boot();
-
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'statamic-livewire');
 
         if ($this->app->runningInConsole()) {
@@ -25,10 +23,19 @@ class ServiceProvider extends AddonServiceProvider
             ], 'statamic-livewire');
         }
 
+        $this->bootReplacers();
         $this->bootSyntesizers();
     }
 
-    protected function bootSyntesizers()
+    protected function bootReplacers(): void
+    {
+        config()->set('statamic.static_caching.replacers', array_merge(
+            config('statamic.static_caching.replacers'),
+            config('statamic-livewire.replacers')
+        ));
+    }
+
+    protected function bootSyntesizers(): void
     {
         if (! config('statamic-livewire.synthesizers.enabled', false)) {
             return;

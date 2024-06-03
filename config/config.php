@@ -29,4 +29,18 @@ return [
             \Jonassiewertsen\Livewire\Synthesizers\EntrySynthesizer::class,
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Replacers
+    |--------------------------------------------------------------------------
+    |
+    | Define the replacers that will be used when static caching is enabled
+    | to dynamically replace content within the response.
+    |
+    */
+
+    'replacers' => [
+        \Jonassiewertsen\Livewire\Replacers\AssetsReplacer::class,
+    ],
 ];
