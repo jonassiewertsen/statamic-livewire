@@ -2,14 +2,14 @@
 
 namespace Jonassiewertsen\Livewire\Replacers;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Response;
-use Statamic\StaticCaching\Cacher;
-use Statamic\StaticCaching\Replacer;
-use Statamic\StaticCaching\Cachers\NullCacher;
-use Livewire\Mechanisms\FrontendAssets\FrontendAssets;
-use Livewire\Features\SupportScriptsAndAssets\SupportScriptsAndAssets;
+use Illuminate\Support\Str;
 use Livewire\Features\SupportAutoInjectedAssets\SupportAutoInjectedAssets;
+use Livewire\Features\SupportScriptsAndAssets\SupportScriptsAndAssets;
+use Livewire\Mechanisms\FrontendAssets\FrontendAssets;
+use Statamic\StaticCaching\Cacher;
+use Statamic\StaticCaching\Cachers\NullCacher;
+use Statamic\StaticCaching\Replacer;
 
 class AssetsReplacer implements Replacer
 {
@@ -41,6 +41,7 @@ class AssetsReplacer implements Replacer
 
             /**
              * Ensure Livewire injects its assets on the initial request.
+             *
              * @see \Livewire\Features\SupportAutoInjectedAssets\SupportAutoInjectedAssets
              */
             app(FrontendAssets::class)->hasRenderedStyles = false;
