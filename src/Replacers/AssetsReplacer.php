@@ -2,13 +2,14 @@
 
 namespace Jonassiewertsen\Livewire\Replacers;
 
-use Illuminate\Http\Response;
 use Illuminate\Support\Str;
-use Livewire\Features\SupportAutoInjectedAssets\SupportAutoInjectedAssets;
-use Livewire\Features\SupportScriptsAndAssets\SupportScriptsAndAssets;
-use Livewire\Livewire;
-use Livewire\Mechanisms\FrontendAssets\FrontendAssets;
+use Illuminate\Http\Response;
+use Statamic\StaticCaching\Cacher;
 use Statamic\StaticCaching\Replacer;
+use Statamic\StaticCaching\Cachers\NullCacher;
+use Livewire\Mechanisms\FrontendAssets\FrontendAssets;
+use Livewire\Features\SupportScriptsAndAssets\SupportScriptsAndAssets;
+use Livewire\Features\SupportAutoInjectedAssets\SupportAutoInjectedAssets;
 
 class AssetsReplacer implements Replacer
 {
@@ -18,31 +19,54 @@ class AssetsReplacer implements Replacer
             return;
         }
 
-        if (! $assets = SupportScriptsAndAssets::getAssets()) {
+        // Don't disturb Livewire's assets injection when caching is off.
+        if (app(Cacher::class) instanceof NullCacher) {
             return;
         }
 
+        $assetsHead = '';
+        $assetsBody = '';
+
+        $assets = array_values(SupportScriptsAndAssets::getAssets());
+
+        if (count($assets) > 0) {
+            foreach ($assets as $asset) {
+                $assetsHead .= $asset."\n";
+            }
+        }
+
+        if ($this->shouldInjectLivewireAssets($initialResponse)) {
+            $assetsHead .= FrontendAssets::styles()."\n";
+            $assetsBody .= FrontendAssets::scripts()."\n";
+
+            /**
+             * Ensure Livewire injects its assets on the initial request.
+             * @see \Livewire\Features\SupportAutoInjectedAssets\SupportAutoInjectedAssets
+             */
+            app(FrontendAssets::class)->hasRenderedStyles = false;
+            app(FrontendAssets::class)->hasRenderedScripts = false;
+        }
+
         $responseToBeCached->setContent(
-            SupportAutoInjectedAssets::injectAssets(
-                html: $content,
-                assetsHead: implode('', $assets),
-                assetsBody: ''
-            )
+            SupportAutoInjectedAssets::injectAssets($content, $assetsHead, $assetsBody)
         );
+    }
+
+    protected function shouldInjectLivewireAssets(Response $response): bool
+    {
+        if (Str::contains($response, FrontendAssets::scripts())) {
+            return false;
+        }
+
+        if (Str::contains($response, FrontendAssets::scriptConfig())) {
+            return false;
+        }
+
+        return true;
     }
 
     public function replaceInCachedResponse(Response $response)
     {
-        if (Str::contains($response, FrontendAssets::scripts())) {
-            return;
-        }
-
-        if (Str::contains($response, FrontendAssets::scriptConfig())) {
-            return;
-        }
-
-        app(FrontendAssets::class)->hasRenderedScripts = false;
-
-        Livewire::forceAssetInjection();
+        //
     }
 }

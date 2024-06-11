@@ -30,8 +30,8 @@ class ServiceProvider extends AddonServiceProvider
     protected function bootReplacers(): void
     {
         config()->set('statamic.static_caching.replacers', array_merge(
-            config('statamic.static_caching.replacers'),
-            config('statamic-livewire.replacers')
+            config('statamic-livewire.replacers'),
+            config('statamic.static_caching.replacers')
         ));
     }
 
