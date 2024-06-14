@@ -3,7 +3,6 @@
 namespace Jonassiewertsen\Livewire\Replacers;
 
 use Illuminate\Http\Response;
-use Illuminate\Support\Str;
 use Livewire\Features\SupportAutoInjectedAssets\SupportAutoInjectedAssets;
 use Livewire\Features\SupportScriptsAndAssets\SupportScriptsAndAssets;
 use Livewire\Mechanisms\FrontendAssets\FrontendAssets;
@@ -35,7 +34,7 @@ class AssetsReplacer implements Replacer
             }
         }
 
-        if ($this->shouldInjectLivewireAssets($initialResponse)) {
+        if ($this->shouldInjectLivewireAssets()) {
             $assetsHead .= FrontendAssets::styles()."\n";
             $assetsBody .= FrontendAssets::scripts()."\n";
 
@@ -53,15 +52,11 @@ class AssetsReplacer implements Replacer
         );
     }
 
-    protected function shouldInjectLivewireAssets(Response $response): bool
+    protected function shouldInjectLivewireAssets()
     {
-        if (Str::contains($response, FrontendAssets::scripts())) {
-            return false;
-        }
-
-        if (Str::contains($response, FrontendAssets::scriptConfig())) {
-            return false;
-        }
+        if (! SupportAutoInjectedAssets::$forceAssetInjection && config('livewire.inject_assets', true) === false) return false;
+        if ((! SupportAutoInjectedAssets::$hasRenderedAComponentThisRequest) && (! SupportAutoInjectedAssets::$forceAssetInjection)) return false;
+        if (app(FrontendAssets::class)->hasRenderedScripts) return false;
 
         return true;
     }
