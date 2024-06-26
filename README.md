@@ -9,7 +9,7 @@ Visit my newest project Statamictutorials.com. Many tutorials are free.
 [<img src="https://statamictutorials.com/images/seo/statamictutorials.png" width="600" />](https://statamictutorials.com)
 
 ## Description
-A third-party [Laravel Livewire](https://laravel-livewire.com/) integration for Statamic. 
+A third-party [Laravel Livewire](https://laravel-livewire.com/) integration for Statamic.
 
 It's as easy as it gets to get started with Livewire if using Statamic.
 
@@ -23,21 +23,21 @@ composer require jonassiewertsen/statamic-livewire
 ### Manually including Livewire's frontend assets
 By default, Livewire injects the JavaScript and CSS assets it needs into each page that includes a Livewire component. If you want more control over this behavior, you can [manually include the assets](https://livewire.laravel.com/docs/installation#manually-including-livewires-frontend-assets) on a page using the following Antlers tags or Blade directives:
 
-```html 
+```html
 <html>
     <head>
         <!-- If using Antlers -->
         {{ livewire:styles }}
-    
+
         <!-- If using Blade -->
         @livewireStyles
     </head>
     <body>
-    
+
         ...
         <!-- If using Antlers -->
         {{ livewire:scripts }}
-    
+
         <!-- Blade -->
         @livewireScripts
     </body>
@@ -47,21 +47,21 @@ By default, Livewire injects the JavaScript and CSS assets it needs into each pa
 ### Manually bundling Livewire and Alpine
 If you need to include some custom Alpine plugins, you need to [manually bundle the Livewire and Alpine assets](https://livewire.laravel.com/docs/installation#manually-bundling-livewire-and-alpine) and disable the automatic injection by using the following Antlers tag or Blade directive. Do not forget to include the Livewire styles as well.
 
-```html 
+```html
 <html>
     <head>
         <!-- If using Antlers -->
         {{ livewire:styles }}
-    
+
         <!-- If using Blade -->
         @livewireStyles
     </head>
     <body>
-    
+
         ...
         <!-- If using Antlers -->
         {{ livewire:scriptConfig }}
-    
+
         <!-- Blade -->
         @livewireScriptConfig
     </body>
@@ -77,6 +77,16 @@ This addon adds an `AssetsReplacer` class to make Livewire compatible with half 
 ],
 ```
 
+If you are using full measure static caching and you're manually bundling Livewire and Alpine as per the instructions above, you need to make sure to only start Livewire once the CSRF token has been replaced.
+
+```js
+if (window.livewireScriptConfig?.csrf === 'STATAMIC_CSRF_TOKEN') {
+    document.addEventListener('statamic:nocache.replaced', () => Livewire.start());
+} else {
+    Livewire.start();
+}
+```
+
 ## Upgrade
 
 Make sure to read the Livewire upgrade guide, in case you're updating to `Statamic Livewire` 3, as there are breaking changes:
@@ -86,13 +96,13 @@ https://livewire.laravel.com/docs/upgrading
 [Livewire Docs](https://livewire.laravel.com/docs/quickstart)
 
 ### Include components
-You can create Livewire components as described in the [general documentation](https://livewire.laravel.com/docs/components). 
+You can create Livewire components as described in the [general documentation](https://livewire.laravel.com/docs/components).
 To include your Livewire component:
 ```html
 <body>
     <!-- If using Antlers -->
     {{ livewire:your-component-name }}
-    
+
     <!-- If using Blade -->
     <livewire:your-component-name />
 </body>
@@ -195,7 +205,7 @@ You can paginate results by using the WithPagination trait.
 To use pagination with Blade, please use the `Livewire\WithPagination` namespace for your trait as described in the [Livewire docs](https://livewire.laravel.com/docs/pagination#basic-usage).
 
 ### Antlers
-Pagination with Antlers does work similar. Make sure to use the `Jonassiewertsen\Livewire\WithPagination` namespace for your trait if working with Antlers. 
+Pagination with Antlers does work similar. Make sure to use the `Jonassiewertsen\Livewire\WithPagination` namespace for your trait if working with Antlers.
 
 In your Livewire component view:
 ```html
@@ -230,7 +240,7 @@ class ShowArticles extends Component
 ```
 
 ### EXPERIMENTAL: Statamic Support
-As a little experiment, support for an Entry or EntryCollection has been added, so you can make an entry or a entry collection simply a public property and it just works. 
+As a little experiment, support for an Entry or EntryCollection has been added, so you can make an entry or a entry collection simply a public property and it just works.
 
 Supported types:
 - Statamic\Entries\EntryCollection;
@@ -252,7 +262,7 @@ class Foo extends Component
 }
 ```
 
-To make it work, you need to enable that feature first. 
+To make it work, you need to enable that feature first.
 
 1. php artisan vendor:publish
 2. Select statamic-livewire in the list
@@ -263,14 +273,14 @@ In case you want to share state between Livewire and Alpine, there is a Blade di
 ```html
 <!-- With Antlers -->
 <div x-data="{ open: {{ livewire:entangle property='showDropdown' modifier='live' }} }">
-        
+
 <!-- With Blade -->
 <div x-data="{ open: @entangle('showDropdown').live }">
 ```
 
 It's worth mentioning that, since Livewire v3 now builds on top of Alpine, the `@entangle` directive is not documented anymore. Instead, it's possible to entangle the data via [the `$wire` object](https://livewire.laravel.com/docs/javascript#the-wire-object).
 ```html
-<div x-data="{ open: $wire.entangle('showDropdown', true) }">        
+<div x-data="{ open: $wire.entangle('showDropdown', true) }">
 ```
 ### This: Accessing the Livewire component
 You can access and perform actions on the Livewire component like this:
@@ -280,7 +290,7 @@ You can access and perform actions on the Livewire component like this:
     document.addEventListener('livewire:initialized', function () {
         // With Antlers
         {{ livewire:this set="('name', 'Jack')" }}
-        
+
         // With Blade
         @this.set('name', 'Jack')
     })
@@ -324,9 +334,9 @@ Thanks to:
 - Statamic 4 or 5
 
 # Support
-I love to share with the community. Nevertheless, it does take a lot of work, time and effort. 
+I love to share with the community. Nevertheless, it does take a lot of work, time and effort.
 
 [Sponsor me on GitHub](https://github.com/sponsors/jonassiewertsen/) to support my work and the support for this addon.
 
-# License 
+# License
 This plugin is published under the MIT license. Feel free to use it and remember to spread love.
