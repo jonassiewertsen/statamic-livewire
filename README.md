@@ -108,6 +108,18 @@ To include your Livewire component:
 </body>
 ```
 
+if you want to include a component from a dynamic variable you can use the `livewire:component` tag:
+
+```html
+<body>
+    <!-- If using Antlers -->
+    {{ livewire:component :name="variable" }}
+
+    <!-- If using Blade -->
+    <livewire:component name="$variable" />
+</body>
+```
+
 ### Blade or Antlers? Both!
 If creating a Livewire component, you need to render a template file
 
