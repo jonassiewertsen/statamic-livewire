@@ -86,7 +86,7 @@ class Livewire extends Tags
     {
         return \Livewire\Mechanisms\FrontendAssets\FrontendAssets::scriptConfig();
     }
-    
+
     /**
      * Antlers implementation of @assets - https://livewire.laravel.com/docs/javascript#loading-assets
      *
@@ -95,9 +95,9 @@ class Livewire extends Tags
     public function assets(): void
     {
         $html = (string) $this->parse();
-        
+
         $key = md5($html);
-        
+
         if (in_array($key, \Livewire\Features\SupportScriptsAndAssets\SupportScriptsAndAssets::$alreadyRunAssetKeys)) {
             // Skip it...
         } else {
@@ -105,7 +105,7 @@ class Livewire extends Tags
             \Livewire\store($this->context['__livewire'])->push('assets', $html, $key);
         }
     }
-    
+
     /**
      * Antlers implementation of @script - https://livewire.laravel.com/docs/javascript#executing-scripts
      *
@@ -114,9 +114,9 @@ class Livewire extends Tags
     public function script(): void
     {
         $html = trim((string) $this->parse());
-        
+
         $key = md5($html);
-        
+
         \Livewire\store($this->context['__livewire'])->push('scripts', $html, $key);
     }
 }
