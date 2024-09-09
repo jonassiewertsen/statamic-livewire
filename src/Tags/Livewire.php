@@ -15,7 +15,7 @@ class Livewire extends Tags
     {
         return \Livewire\Livewire::mount($expression, $this->params->except('key')->toArray(), $this->params->only('key')->first());
     }
-    
+
     /**
      * This will load your Livewire component in the Antlers view
      *
