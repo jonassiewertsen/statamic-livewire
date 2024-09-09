@@ -108,6 +108,25 @@ To include your Livewire component:
 </body>
 ```
 
+### @script and @assets
+Antlers versions of [@script](https://livewire.laravel.com/docs/javascript#executing-scripts) and [@assets](https://livewire.laravel.com/docs/javascript#loading-assets) are provided:
+
+```html
+<body>
+    {{ livewire:script }}
+	<script>console.log('hello')</script>
+    {{ /livewire:script }}
+</body>
+```
+
+```html
+<body>
+    {{ livewire:assets }}
+	<script src="some-javascript-library.js"></script>
+    {{ /livewire:assets }}
+</body>
+```
+
 ### Blade or Antlers? Both!
 If creating a Livewire component, you need to render a template file
 
