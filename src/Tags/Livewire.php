@@ -15,6 +15,16 @@ class Livewire extends Tags
     {
         return \Livewire\Livewire::mount($expression, $this->params->except('key')->toArray(), $this->params->only('key')->first());
     }
+    
+    /**
+     * This will load your Livewire component in the Antlers view
+     *
+     * {{ livewire:component name="my-component" }}
+     */
+    public function component(): string
+    {
+        return $this->wildcard($this->params->pull('name'));
+    }
 
     /**
      * Sharing State Between Livewire And Alpine via entangle.

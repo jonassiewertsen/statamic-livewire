@@ -108,6 +108,18 @@ To include your Livewire component:
 </body>
 ```
 
+if you want to include a component from a dynamic variable you can use the `livewire:component` tag:
+
+```html
+<body>
+    <!-- If using Antlers -->
+    {{ livewire:component :name="variable" }}
+
+    <!-- If using Blade -->
+    <livewire:component name="$variable" />
+</body>
+```
+
 ### @script and @assets
 Antlers versions of [@script](https://livewire.laravel.com/docs/javascript#executing-scripts) and [@assets](https://livewire.laravel.com/docs/javascript#loading-assets) are provided:
 
