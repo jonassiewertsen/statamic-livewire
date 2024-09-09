@@ -98,7 +98,12 @@ class Livewire extends Tags
         
         $key = md5($html);
         
-        \Livewire\store($this->context['__livewire'])->push('assets', $html, $key);
+        if (in_array($key, \Livewire\Features\SupportScriptsAndAssets\SupportScriptsAndAssets::$alreadyRunAssetKeys)) {
+            // Skip it...
+        } else {
+            \Livewire\Features\SupportScriptsAndAssets\SupportScriptsAndAssets::$alreadyRunAssetKeys[] = $key;
+            \Livewire\store($this->context['__livewire'])->push('assets', $html, $key);
+        }
     }
     
     /**
@@ -112,11 +117,6 @@ class Livewire extends Tags
         
         $key = md5($html);
         
-        if (in_array($key, \Livewire\Features\SupportScriptsAndAssets\SupportScriptsAndAssets::$alreadyRunAssetKeys)) {
-            // Skip it...
-        } else {
-            \Livewire\Features\SupportScriptsAndAssets\SupportScriptsAndAssets::$alreadyRunAssetKeys[] = $key;
-            \Livewire\store($this->context['__livewire'])->push('scripts', $html, $key);
-        }
+        \Livewire\store($this->context['__livewire'])->push('scripts', $html, $key);
     }
 }
