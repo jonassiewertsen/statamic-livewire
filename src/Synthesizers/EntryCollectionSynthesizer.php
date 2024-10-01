@@ -5,6 +5,7 @@ namespace Jonassiewertsen\Livewire\Synthesizers;
 use Livewire\Mechanisms\HandleComponents\Synthesizers\Synth;
 use Statamic\Entries\Entry;
 use Statamic\Entries\EntryCollection as StatamicEntryCollection;
+use Illuminate\Support\Carbon;
 
 class EntryCollectionSynthesizer extends Synth
 {
@@ -44,7 +45,13 @@ class EntryCollectionSynthesizer extends Synth
                 ->data($value['data']);
 
             if ($value['date']) {
-                $entry->date($value['date'] ?? null);
+                $date = $value['date'];
+
+                if (!$date instanceof \Carbon\CarbonInterface) {
+                    $date = Carbon::parse($date);
+                }
+            
+                $entry->date($date ?? null);
             }
 
             $items[] = $entry;
