@@ -2,10 +2,10 @@
 
 namespace Jonassiewertsen\Livewire\Synthesizers;
 
+use Illuminate\Support\Carbon;
 use Livewire\Mechanisms\HandleComponents\Synthesizers\Synth;
 use Statamic\Entries\Entry;
 use Statamic\Entries\EntryCollection as StatamicEntryCollection;
-use Illuminate\Support\Carbon;
 
 class EntryCollectionSynthesizer extends Synth
 {
@@ -47,10 +47,10 @@ class EntryCollectionSynthesizer extends Synth
             if ($value['date']) {
                 $date = $value['date'];
 
-                if (!$date instanceof \Carbon\CarbonInterface) {
+                if (! $date instanceof \Carbon\CarbonInterface) {
                     $date = Carbon::parse($date);
                 }
-            
+
                 $entry->date($date ?? null);
             }
 
