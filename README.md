@@ -4,9 +4,10 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/jonassiewertsen/statamic-livewire.svg?style=for-the-badge)](https://packagist.org/packages/jonassiewertsen/statamic-livewire)
 <!-- /statamic:hide -->
 
-## Wanna learn Statamic?
-Visit my newest project Statamictutorials.com. Many tutorials are free.
-[<img src="https://statamictutorials.com/images/seo/statamictutorials.png" width="600" />](https://statamictutorials.com)
+## New Maintainer 
+Please switch to [https://github.com/marcorieser/statamic-livewire](https://github.com/marcorieser/statamic-livewire) instead. Switching is easy and there is no breaking change. Please check the Guide in the new repo.
+
+Thanks for your support ❤️
 
 ## Description
 A third-party [Laravel Livewire](https://laravel-livewire.com/) integration for Statamic.
